@@ -8,7 +8,7 @@
         [tableStyle]="{ 'min-width': '50rem' }"
         [scrollable]="true"
         scrollHeight="400px"
-      >
+        >
         <ng-template pTemplate="header">
           <tr>
             <th class="custom_font_color">Property Name</th>
@@ -23,11 +23,11 @@
             <td>{{ property.propertyName }}</td>
             <td>
               {{
-                property.rentAmount != null
-                  ? property.rentDue <= 0.0
-                    ? "Paid"
-                    : "Rent Due"
-                  : "Rent Not Yet Generated"
+              property.rentAmount != null
+              ? property.rentDue <= 0.0
+              ? "Paid"
+              : "Rent Due"
+              : "Rent Not Yet Generated"
               }}
             </td>
             <td>
@@ -39,20 +39,23 @@
             </td>
 
             <td>
-              <span *ngIf="property.totalIssue; else ed">
-                <a
-                  href="javascript:void(0)"
-                  routerLink="/landlord/tenant/issue-tracker"
-                  >{{ property.totalIssue }}
-                </a>
-              </span>
-              <ng-template #ed>{{ property.totalIssue }}</ng-template>
+              @if (property.totalIssue) {
+                <span>
+                  <a
+                    href="javascript:void(0)"
+                    routerLink="/landlord/tenant/issue-tracker"
+                    >{{ property.totalIssue }}
+                  </a>
+                </span>
+              } @else {
+                {{ property.totalIssue }}
+              }
             </td>
             <td>
               {{
-                property.nextRentDueOn != null
-                  ? (property.nextRentDueOn | date : "dd/MM/yyyy")
-                  : "Rent Not Yet Generated"
+              property.nextRentDueOn != null
+              ? (property.nextRentDueOn | date : "dd/MM/yyyy")
+              : "Rent Not Yet Generated"
               }}
             </td>
           </tr>

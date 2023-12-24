@@ -10,33 +10,39 @@
               formControlName="property"
               class="form-select"
               id="property"
-            >
+              >
               <option value="">Choose Property</option>
-              <option [ngValue]="item" *ngFor="let item of propertyDropDown">
-                {{ item.name }}
-              </option>
+              @for (item of propertyDropDown; track item) {
+                <option [ngValue]="item">
+                  {{ item.name }}
+                </option>
+              }
             </select>
-            <div
-              *ngIf="f['property'].invalid && f['property'].touched"
-              class="text-danger"
-            >
-              Please select a category.
-            </div>
+            @if (f['property'].invalid && f['property'].touched) {
+              <div
+                class="text-danger"
+                >
+                Please select a category.
+              </div>
+            }
           </div>
           <div class="col-md-6">
             <label for="tenant" class="form-label">Tenant</label>
             <select formControlName="tenant" class="form-select" id="tenant">
               <option value="">Choose Tenant</option>
-              <option [ngValue]="item" *ngFor="let item of tenantDropDown">
-                {{ item.name }}
-              </option>
+              @for (item of tenantDropDown; track item) {
+                <option [ngValue]="item">
+                  {{ item.name }}
+                </option>
+              }
             </select>
-            <div
-              *ngIf="f['tenant'].invalid && f['tenant'].touched"
-              class="text-danger"
-            >
-              Please select a Tenant.
-            </div>
+            @if (f['tenant'].invalid && f['tenant'].touched) {
+              <div
+                class="text-danger"
+                >
+                Please select a Tenant.
+              </div>
+            }
           </div>
           <div class="col-md-6">
             <label for="category" class="form-label">Category</label>
@@ -44,7 +50,7 @@
               formControlName="category"
               class="form-select"
               id="category"
-            >
+              >
               <option value="">Choose Category</option>
               <option value="Electrical">Electrical</option>
               <option value="Plumbing">Plumbing</option>
@@ -53,12 +59,13 @@
               <option value="Furniture">Furniture</option>
               <option value="Others">Others</option>
             </select>
-            <div
-              *ngIf="f['category'].invalid && f['category'].touched"
-              class="text-danger"
-            >
-              Please select a category.
-            </div>
+            @if (f['category'].invalid && f['category'].touched) {
+              <div
+                class="text-danger"
+                >
+                Please select a category.
+              </div>
+            }
           </div>
           <div class="col-md-6">
             <label for="description" class="form-label">Description</label>
@@ -69,23 +76,26 @@
               rows="3"
               placeholder="Enter description"
             ></textarea>
-            <div *ngIf=" f['description'].errors && f['description'].errors['maxlength']" class="text-danger">
-              Maximum length exceeded ({{ f['description'].value.length }}/{{ f['description'].errors['maxlength'].requiredLength}})
-            </div>
+            @if ( f['description'].errors && f['description'].errors['maxlength']) {
+              <div class="text-danger">
+                Maximum length exceeded ({{ f['description'].value.length }}/{{ f['description'].errors['maxlength'].requiredLength}})
+              </div>
+            }
 
-            <div
-              *ngIf="f['description'].invalid && f['description'].touched && f['description'].errors && f['description'].errors['required']"
-              class="text-danger"
-            >
-              Please enter a description.
-            </div>
+            @if (f['description'].invalid && f['description'].touched && f['description'].errors && f['description'].errors['required']) {
+              <div
+                class="text-danger"
+                >
+                Please enter a description.
+              </div>
+            }
           </div>
           <div class="pt-1">
             <button
               type="submit"
               [disabled]="ticketCreateForm.invalid"
               class="btn btn-success"
-            >
+              >
               Submit
             </button>
           </div>
@@ -104,7 +114,7 @@
         [tableStyle]="{ 'min-width': '50rem' }"
         [scrollable]="true"
         scrollHeight="400px"
-      >
+        >
         <ng-template pTemplate="header">
           <tr>
             <th>#</th>
@@ -149,7 +159,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
               "
-            >
+              >
               {{ ticket.description }}
             </td>
             <td class="custom_font_color">
@@ -168,17 +178,17 @@
               [appendTo]="'body'"
               [fitContent]="true"
               pTooltip="{{ ticket.status[0]?.comment }}"
-            >
+              >
               {{ ticket.status[0]?.comment }}
             </td>
             <td>
               <a href="javascript:void(0)" (click)="ticketHistory(ticket)"
                 >Edit</a
-              >
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+                >
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
   </div>
-</div>

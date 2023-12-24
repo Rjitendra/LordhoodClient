@@ -62,23 +62,26 @@
       ></p-radioButton>
     </div>
     <div class="col-sm">
-      <div *ngIf="selectedPropertyValue === 'PropertyId'">
-        <label>Link Property</label>
-        <p-dropdown
-          [options]="propertyDropDown"
-          id="PropertyId"
-          [(ngModel)]="selectedProperty"
-          placeholder="Select a Property"
-          optionLabel="name"
-          [showClear]="false"
-        ></p-dropdown>
-        <div
-          *ngIf="selectedPropertyValue === 'PropertyId' && !selectedProperty"
-          class="text-danger"
-        >
-          Field is required
+      @if (selectedPropertyValue === 'PropertyId') {
+        <div>
+          <label>Link Property</label>
+          <p-dropdown
+            [options]="propertyDropDown"
+            id="PropertyId"
+            [(ngModel)]="selectedProperty"
+            placeholder="Select a Property"
+            optionLabel="name"
+            [showClear]="false"
+          ></p-dropdown>
+          @if (selectedPropertyValue === 'PropertyId' && !selectedProperty) {
+            <div
+              class="text-danger"
+              >
+              Field is required
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
     <div class="col-sm"></div>
   </div>
@@ -110,7 +113,7 @@
           [tableStyle]="{ 'min-width': '50rem' }"
           [scrollable]="true"
           scrollHeight="400px"
-        >
+          >
           <ng-template pTemplate="header">
             <tr>
               <th>#</th>
@@ -154,7 +157,7 @@
                   overflow: hidden;
                   text-overflow: ellipsis;
                 "
-              >
+                >
                 {{ ticket.description }}
               </td>
               <td class="custom_font_color">
@@ -173,7 +176,7 @@
                 [appendTo]="'body'"
                 [fitContent]="true"
                 pTooltip="{{ ticket.status[0]?.comment }}"
-              >
+                >
                 {{ ticket.status[0]?.comment }}
               </td>
             </tr>

@@ -14,12 +14,13 @@
             <option value="Furniture">Furniture</option>
             <option value="Others">Others</option>
           </select>
-          <div
-            *ngIf="f['category'].invalid && f['category'].touched"
-            class="text-danger"
-          >
-            Please select a category.
-          </div>
+          @if (f['category'].invalid && f['category'].touched) {
+            <div
+              class="text-danger"
+              >
+              Please select a category.
+            </div>
+          }
         </div>
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
@@ -30,21 +31,24 @@
             rows="3"
             placeholder="Enter description"
           ></textarea>
-          <div *ngIf=" f['description'].errors && f['description'].errors['maxlength']" class="text-danger">
-            Maximum length exceeded ({{ f['description'].value.length }}/{{ f['description'].errors['maxlength'].requiredLength}})
-          </div>
-          <div
-            *ngIf="f['description'].invalid && f['description'].touched  && f['description'].errors &&  f['description'].errors['required']"
-            class="text-danger"
-          >
-            Please enter a description.
-          </div>
+          @if ( f['description'].errors && f['description'].errors['maxlength']) {
+            <div class="text-danger">
+              Maximum length exceeded ({{ f['description'].value.length }}/{{ f['description'].errors['maxlength'].requiredLength}})
+            </div>
+          }
+          @if (f['description'].invalid && f['description'].touched  && f['description'].errors &&  f['description'].errors['required']) {
+            <div
+              class="text-danger"
+              >
+              Please enter a description.
+            </div>
+          }
         </div>
         <button
           type="submit"
           [disabled]="ticketForm.invalid"
           class="btn btn-success"
-        >
+          >
           Submit
         </button>
       </form>
@@ -69,7 +73,7 @@
         [tableStyle]="{ 'min-width': '50rem' }"
         [scrollable]="true"
         scrollHeight="400px"
-      >
+        >
         <ng-template pTemplate="header">
           <tr>
             <th class="custom_font_color">Ticket Number</th>
@@ -102,11 +106,11 @@
             <td>
               <a href="javascript:void(0)" (click)="ticketHistory(ticket)"
                 >Edit</a
-              >
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+                >
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
   </div>
-</div>

@@ -30,22 +30,26 @@
     <div class="col-sm">
       <label>All</label>
       <p-radioButton name="propertygroupname" value="All" [(ngModel)]="selectedPropertyValue"
-        (onClick)="selectProperty()"></p-radioButton>
+      (onClick)="selectProperty()"></p-radioButton>
     </div>
     <div class="col-sm">
       <label>Property</label>
       <p-radioButton name="propertygroupname" value="PropertyId" [(ngModel)]="selectedPropertyValue"
-        (onClick)="selectProperty()"></p-radioButton>
+      (onClick)="selectProperty()"></p-radioButton>
     </div>
     <div class="col-sm">
-      <div *ngIf="selectedPropertyValue === 'PropertyId'">
-        <label>Link Property</label>
-        <p-dropdown [options]="propertyDropDown" id="PropertyId" [(ngModel)]="selectedProperty"
+      @if (selectedPropertyValue === 'PropertyId') {
+        <div>
+          <label>Link Property</label>
+          <p-dropdown [options]="propertyDropDown" id="PropertyId" [(ngModel)]="selectedProperty"
           placeholder="Select a Property" optionLabel="name" [showClear]="false"></p-dropdown>
-        <div *ngIf="selectedPropertyValue === 'PropertyId' && !selectedProperty" class="text-danger">
-          Field is required
+          @if (selectedPropertyValue === 'PropertyId' && !selectedProperty) {
+            <div class="text-danger">
+              Field is required
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
     <div class="col-sm"></div>
   </div>
@@ -64,8 +68,8 @@
     <div class="">
       <div class="row">
         <!-- <p-table [value]="rentReport" styleClass="p-datatable-gridlines p-datatable-sm"
-          [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="400px" dataKey="id"> -->
-          <p-table [value]="rentReport" styleClass="p-datatable-sm"
+        [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="400px" dataKey="id"> -->
+        <p-table [value]="rentReport" styleClass="p-datatable-sm"
           [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="400px" dataKey="id">
           <ng-template pTemplate="header">
             <tr>
@@ -86,61 +90,61 @@
                   <p-table [value]="product.rentHistory" dataKey="id" styleClass="p-datatable-gridlines p-datatable-sm"
                     [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="200px">
                     <ng-template pTemplate="header">
-            <tr>
-              <th class="custom_font_color">Amount</th>
-              <th class="custom_font_color">Payment Mode</th>
-              <th class="custom_font_color">Date</th>
+                      <tr>
+                        <th class="custom_font_color">Amount</th>
+                        <th class="custom_font_color">Payment Mode</th>
+                        <th class="custom_font_color">Date</th>
 
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-order>
+                      <tr>
+                        <td>{{ order.rentPaid | currency : "GBP" }}</td>
+                        <td>{{ order.paymentMode}}</td>
+                        <td>{{ order.dateCreated | date : "dd/MM/yyyy"}}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                      <tr>
+                        <td colspan="6"></td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </td>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-order>
+
+          <ng-template pTemplate="body" let-rent let-expanded="expanded">
             <tr>
-              <td>{{ order.rentPaid | currency : "GBP" }}</td>
-              <td>{{ order.paymentMode}}</td>
-              <td>{{ order.dateCreated | date : "dd/MM/yyyy"}}</td>
+
+              <td>{{ rent.month }}</td>
+              <td>{{ rent.propertyName }}</td>
+              <td>{{ rent.tenantName }}</td>
+              <td>{{ rent.rentAmount | currency : "GBP" }}</td>
+              <td>{{ rent.latePaymentCharges | currency : "GBP" }}</td>
+              <td>{{ rent.rentPaid | currency : "GBP" }}</td>
+              <td>{{ rent.comments }}</td>
+
+              <td>
+                <button type="button" pButton pRipple [pRowToggler]="rent"
+                  class="p-button-text p-button-rounded p-button-plain"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" (click)="loadRentHistory(rent)"></button>
+              </td>
             </tr>
           </ng-template>
-          <ng-template pTemplate="emptymessage">
+          <ng-template pTemplate="footer">
             <tr>
-              <td colspan="6"></td>
+              <td colspan="3" class="text-right">Totals</td>
+              <td>{{ totalRentAmount | currency : "GBP" }}</td>
+              <td>{{ totalLateCharges | currency : "GBP" }}</td>
+              <td>{{ totalAmontCollected | currency : "GBP" }}</td>
+              <td></td>
+              <td></td>
             </tr>
           </ng-template>
         </p-table>
       </div>
-      </td>
-      </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-rent let-expanded="expanded">
-        <tr>
-
-          <td>{{ rent.month }}</td>
-          <td>{{ rent.propertyName }}</td>
-          <td>{{ rent.tenantName }}</td>
-          <td>{{ rent.rentAmount | currency : "GBP" }}</td>
-          <td>{{ rent.latePaymentCharges | currency : "GBP" }}</td>
-          <td>{{ rent.rentPaid | currency : "GBP" }}</td>
-          <td>{{ rent.comments }}</td>
-
-          <td>
-            <button type="button" pButton pRipple [pRowToggler]="rent"
-              class="p-button-text p-button-rounded p-button-plain"
-              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" (click)="loadRentHistory(rent)"></button>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <tr>
-          <td colspan="3" class="text-right">Totals</td>
-          <td>{{ totalRentAmount | currency : "GBP" }}</td>
-          <td>{{ totalLateCharges | currency : "GBP" }}</td>
-          <td>{{ totalAmontCollected | currency : "GBP" }}</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </ng-template>
-      </p-table>
     </div>
   </div>
-</div>
 </div>

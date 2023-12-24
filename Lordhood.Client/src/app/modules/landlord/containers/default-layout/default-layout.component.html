@@ -14,12 +14,14 @@
   <ng-scrollbar pointerEventsMethod="scrollbar">
     <c-sidebar-nav [navItems]="navItems" dropdownMode="close"> </c-sidebar-nav>
   </ng-scrollbar>
-  <c-sidebar-toggler *ngIf="!sidebar.narrow" toggle="unfoldable" cSidebarToggle="sidebar"></c-sidebar-toggler>
+  @if (!sidebar.narrow) {
+    <c-sidebar-toggler toggle="unfoldable" cSidebarToggle="sidebar"></c-sidebar-toggler>
+  }
 </c-sidebar>
 
 <div class="wrapper d-flex flex-column min-vh-100 dark:bg-transparent">
   <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky"
-    sidebarId="sidebar"></app-default-header>
+  sidebarId="sidebar"></app-default-header>
 
   <div class="body flex-grow-1 px-3" style="background-color: #fff">
     <!-- <router-outlet></router-outlet> -->
@@ -30,8 +32,10 @@
 
   <app-default-footer></app-default-footer>
 </div>
-<div class="progress-spinner" *ngIf="loading">
-  <p-progressSpinner></p-progressSpinner>
-</div>
+@if (loading) {
+  <div class="progress-spinner">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+}
 <app-toaster></app-toaster>
 <p-confirmDialog [style]="{ width: '30vw' }"></p-confirmDialog>

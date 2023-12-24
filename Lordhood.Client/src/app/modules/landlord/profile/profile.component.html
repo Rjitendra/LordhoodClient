@@ -8,32 +8,30 @@
             <div class="card">
               <div class="card-body">
                 <div class="mb-3">
-                 
-                  <p
-                    class="d-inline"
-                    *ngIf="
-                      landlordProfile.isUpdatedAccount;
-                      else connectLinkstatus
-                    "
-                  >
-                  <button
-                  pButton
-                  class="p-button-sm me-1"
-                  (click)="createAccount()"
-                  label="View My Stripe"
-                ></button>
-                  </p>
-                  <ng-template #connectLinkstatus>
+
+                  @if (
+                    landlordProfile.isUpdatedAccount) {
+                    <p
+                      class="d-inline"
+                      >
+                      <button
+                        pButton
+                        class="p-button-sm me-1"
+                        (click)="createAccount()"
+                        label="View My Stripe"
+                      ></button>
+                    </p>
+                  } @else {
                     <button
                       pButton
                       class="p-button-sm me-1"
                       (click)="createAccount()"
                       label="Create My Stripe"
                     ></button>
-                  </ng-template>
+                  }
                 </div>
 
-                
+
                 <div class="mb-3">
                   <strong class="d-inline">User Since:</strong>
                   <p class="d-inline">
@@ -46,12 +44,14 @@
                     {{ landlordProfile.dateExpiry | date : "dd/MM/yyyy" }}
                   </p>
                 </div>
-                <button *ngIf="landlordProfile.isRenew"
-                  pButton
-                  class="p-button-sm me-1"
-                  label="Renew - £40"
-                  (click)="checkOutToAdmin()"
-                ></button>
+                @if (landlordProfile.isRenew) {
+                  <button
+                    pButton
+                    class="p-button-sm me-1"
+                    label="Renew - £40"
+                    (click)="checkOutToAdmin()"
+                  ></button>
+                }
               </div>
             </div>
           </div>

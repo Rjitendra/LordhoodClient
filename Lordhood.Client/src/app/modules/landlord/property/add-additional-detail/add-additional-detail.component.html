@@ -8,388 +8,395 @@
           <div class="col-md-6">
             <label for="inputEmail4" class="custom_font_color"
               >Upload Floor Plan</label
-            >
-            <div>
-              <input
-                type="file"
-                accept=".pdf"
-                class="form-control"
-                (change)="fileChange($event)"
-                formControlName="floorPlanCtrl"
-              />
+              >
+              <div>
+                <input
+                  type="file"
+                  accept=".pdf"
+                  class="form-control"
+                  (change)="fileChange($event)"
+                  formControlName="floorPlanCtrl"
+                  />
 
-              <div *ngIf="f['floorPlanCtrl'].errors" class="text-danger">
-                <div *ngIf="f['floorPlanCtrl'].errors['invalidFileFormat']">
-                  Only PDF files are allowed
+                  @if (f['floorPlanCtrl'].errors) {
+                    <div class="text-danger">
+                      @if (f['floorPlanCtrl'].errors['invalidFileFormat']) {
+                        <div>
+                          Only PDF files are allowed
+                        </div>
+                      }
+                      @if (f['floorPlanCtrl'].errors['maxFileSizeExceeded']) {
+                        <div>
+                          Maximum file size exceeded
+                        </div>
+                      }
+                    </div>
+                  }
                 </div>
-                <div *ngIf="f['floorPlanCtrl'].errors['maxFileSizeExceeded']">
-                  Maximum file size exceeded
+                <div>
+                  @if (property?.floorPlanFileName!) {
+                    <div class="row pt-2">
+                      <div class="col-md-6">{{ property.floorPlanFileName }}</div>
+                      <div class="col-md-6">
+                        <span
+                          class="d-flex justify-content-end"
+                          (click)="fileDelete()"
+                          >
+                          <i class="fa fa-trash fa-xs"></i>
+                        </span>
+                      </div>
+                    </div>
+                  }
                 </div>
               </div>
-            </div>
-            <div>
-              <div class="row pt-2" *ngIf="property?.floorPlanFileName!">
-                <div class="col-md-6">{{ property.floorPlanFileName }}</div>
-
-                <div class="col-md-6">
-                  <span
-                    class="d-flex justify-content-end"
-                    (click)="fileDelete()"
+              <div class="col-md-6">
+                <label for="councilDetailsCtrl" class="custom_font_color"
+                  >Council Details</label
                   >
-                    <i class="fa fa-trash fa-xs"></i>
-                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="councilDetailsCtrl"
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label for="councilDetailsCtrl" class="custom_font_color"
-              >Council Details</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="councilDetailsCtrl"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <label for="electricityProviderCtrl" class="custom_font_color"
-              >Electricity Provider</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="electricityProviderCtrl"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="electricityLatestReadingCtrl" class="custom_font_color"
-              >Latest Reading</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="electricityLatestReadingCtrl"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="electricityDateOnCtrl" class="custom_font_color"
-              >Date On</label
-            >
-            <p-calendar
-              [style]="{ width: '100%' }"
-              [showIcon]="true"
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="electricityProviderCtrl" class="custom_font_color"
+                      >Electricity Provider</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="electricityProviderCtrl"
+                        />
+                      </div>
+                      <div class="col-md-4">
+                        <label for="electricityLatestReadingCtrl" class="custom_font_color"
+                          >Latest Reading</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="electricityLatestReadingCtrl"
+                            />
+                          </div>
+                          <div class="col-md-4">
+                            <label for="electricityDateOnCtrl" class="custom_font_color"
+                              >Date On</label
+                              >
+                              <p-calendar
+                                [style]="{ width: '100%' }"
+                                [showIcon]="true"
               [inputStyleClass]="
                 submitted && f['electricityDateOnCtrl'].errors
                   ? 'form-control red-bar'
                   : 'form-control'
               "
-              inputId="icon"
+                                inputId="icon"
               [ngClass]="{
                 'is-invalid': submitted && f['electricityDateOnCtrl'].errors
               }"
-              [readonlyInput]="true"
-              dateFormat="dd/mm/yy"
-              [monthNavigator]="true"
-              [yearNavigator]="true"
-              yearRange="2000:2099"
-              appendTo="body"
-              formControlName="electricityDateOnCtrl"
-            ></p-calendar>
-          </div>
-        </div>
+                                [readonlyInput]="true"
+                                dateFormat="dd/mm/yy"
+                                [monthNavigator]="true"
+                                [yearNavigator]="true"
+                                yearRange="2000:2099"
+                                appendTo="body"
+                                formControlName="electricityDateOnCtrl"
+                              ></p-calendar>
+                            </div>
+                          </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            <label for="inputEmail4" class="custom_font_color"
-              >Gas Provider</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="gasProviderCtrl"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="inputEmail4" class="custom_font_color"
-              >Latest Reading</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="gasProviderLatestReadingCtrl"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="inputEmail4" class="custom_font_color">Date On</label>
-            <p-calendar
-              [style]="{ width: '100%' }"
-              appendTo="body"
-              [monthNavigator]="true"
-              [yearNavigator]="true"
-              yearRange="2000:2099"
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label for="inputEmail4" class="custom_font_color"
+                                >Gas Provider</label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="gasProviderCtrl"
+                                  />
+                                </div>
+                                <div class="col-md-4">
+                                  <label for="inputEmail4" class="custom_font_color"
+                                    >Latest Reading</label
+                                    >
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      formControlName="gasProviderLatestReadingCtrl"
+                                      />
+                                    </div>
+                                    <div class="col-md-4">
+                                      <label for="inputEmail4" class="custom_font_color">Date On</label>
+                                      <p-calendar
+                                        [style]="{ width: '100%' }"
+                                        appendTo="body"
+                                        [monthNavigator]="true"
+                                        [yearNavigator]="true"
+                                        yearRange="2000:2099"
               [inputStyleClass]="
                 submitted && f['gasProviderDateOnCtrl'].errors
                   ? 'form-control red-bar'
                   : 'form-control'
               "
-              [showIcon]="true"
-              inputId="icon"
-              [readonlyInput]="true"
-              dateFormat="dd/mm/yy"
-              formControlName="gasProviderDateOnCtrl"
+                                        [showIcon]="true"
+                                        inputId="icon"
+                                        [readonlyInput]="true"
+                                        dateFormat="dd/mm/yy"
+                                        formControlName="gasProviderDateOnCtrl"
               [ngClass]="{
                 'is-invalid': submitted && f['gasProviderDateOnCtrl'].errors
               }"
-            ></p-calendar>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <label for="inputEmail4" class="custom_font_color"
-              >Water Provider</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="waterProviderCtrl"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="inputEmail4" class="custom_font_color"
-              >Latest Reading</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="waterLatestReadingCtrl"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="inputEmail4" class="custom_font_color">Date On</label>
-            <p-calendar
-              [style]="{ width: '100%' }"
-              appendTo="body"
-              [monthNavigator]="true"
-              [yearNavigator]="true"
-              yearRange="2000:2099"
+                                      ></p-calendar>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <label for="inputEmail4" class="custom_font_color"
+                                        >Water Provider</label
+                                        >
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          formControlName="waterProviderCtrl"
+                                          />
+                                        </div>
+                                        <div class="col-md-4">
+                                          <label for="inputEmail4" class="custom_font_color"
+                                            >Latest Reading</label
+                                            >
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              formControlName="waterLatestReadingCtrl"
+                                              />
+                                            </div>
+                                            <div class="col-md-4">
+                                              <label for="inputEmail4" class="custom_font_color">Date On</label>
+                                              <p-calendar
+                                                [style]="{ width: '100%' }"
+                                                appendTo="body"
+                                                [monthNavigator]="true"
+                                                [yearNavigator]="true"
+                                                yearRange="2000:2099"
               [inputStyleClass]="
                 submitted && f['waterDateOnCtrl'].errors
                   ? 'form-control red-bar'
                   : 'form-control'
               "
-              [showIcon]="true"
-              inputId="icon"
-              [readonlyInput]="true"
-              dateFormat="dd/mm/yy"
-              formControlName="waterDateOnCtrl"
+                                                [showIcon]="true"
+                                                inputId="icon"
+                                                [readonlyInput]="true"
+                                                dateFormat="dd/mm/yy"
+                                                formControlName="waterDateOnCtrl"
               [ngClass]="{
                 'is-invalid': submitted && f['waterDateOnCtrl'].errors
               }"
-            ></p-calendar>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <label for="inputEmail4" class="custom_font_color"
-              >Room Detail</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="roomDetailCtrl"
-            />
-          </div>
-          <div class="col-md-5">
-            <label for="inputEmail4" class="custom_font_color"
-              >Toilet Detail</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="toiletDetailCtrl"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md">
-            <label for="inputEmail4" class="custom_font_color"
-              >Garage/Parking/Garden/Balcony Details</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              formControlName="spaceDetailCtrl"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <table style="table-layout: fixed">
-          <tr>
-            <td>Property Name</td>
-            <td>{{ property && property.name ? property.name : "" }}</td>
-          </tr>
-          <tr>
-            <td>Address</td>
-            <td>{{ property && property.address ? property.address : "" }}</td>
-          </tr>
-        </table>
-        <br />
-        <br />
-        <br />
+                                              ></p-calendar>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-md-4">
+                                              <label for="inputEmail4" class="custom_font_color"
+                                                >Room Detail</label
+                                                >
+                                                <input
+                                                  type="text"
+                                                  class="form-control"
+                                                  formControlName="roomDetailCtrl"
+                                                  />
+                                                </div>
+                                                <div class="col-md-5">
+                                                  <label for="inputEmail4" class="custom_font_color"
+                                                    >Toilet Detail</label
+                                                    >
+                                                    <input
+                                                      type="text"
+                                                      class="form-control"
+                                                      formControlName="toiletDetailCtrl"
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md">
+                                                      <label for="inputEmail4" class="custom_font_color"
+                                                        >Garage/Parking/Garden/Balcony Details</label
+                                                        >
+                                                        <input
+                                                          type="text"
+                                                          class="form-control"
+                                                          formControlName="spaceDetailCtrl"
+                                                          />
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <table style="table-layout: fixed">
+                                                        <tr>
+                                                          <td>Property Name</td>
+                                                          <td>{{ property && property.name ? property.name : "" }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>Address</td>
+                                                          <td>{{ property && property.address ? property.address : "" }}</td>
+                                                        </tr>
+                                                      </table>
+                                                      <br />
+                                                      <br />
+                                                      <br />
 
-        <h5>White Goods</h5>
-        <table style="table-layout: fixed">
-          <tr>
-            <td>Cooker</td>
-            <td>Oven</td>
-            <td>Washing Machine</td>
-            <td>Refrigerator</td>
-            <td>Dishwasher</td>
-          </tr>
-          <tr>
-            <td>
-              <input
-                type="text"
-                placeholder="Make"
-                formControlName="cookerMakeCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Make"
-                formControlName="ovenMakeCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Make"
-                formControlName="wmMakeCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Make"
-                formControlName="refrigeratorMakeCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Make"
-                formControlName="dishwasherMakeCtrl"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input
-                type="text"
-                placeholder="Model"
-                formControlName="cookerModelCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Model"
-                formControlName="ovenModelCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Model"
-                formControlName="wmModelCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Model"
-                formControlName="refrigeratorModelCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Model"
-                formControlName="dishwasherModelCtrl"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input
-                type="text"
-                placeholder="SerialNo"
-                formControlName="cookerSerialCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="SerialNo"
-                formControlName="ovenSerialCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="SerialNo"
-                formControlName="wmSerialCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="SerialNo"
-                formControlName="refrigeratorSerialCtrl"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="SerialNo"
-                formControlName="dishwasherSerialCtrl"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="5">
-              <input
-                type="text"
-                placeholder="other"
-                formControlName="otherCtrl"
-              />
-            </td>
-          </tr>
-        </table>
-        <br />
-        <div class="form-group col-md-4">
-          <div class="d-flex justify-content-end">
-            <button
-              pButton
-              type="submit"
-              class="p-button-sm me-1"
-              label="Add"
-            ></button>
-            <button
-              pButton
-              type="button"
-              class="p-button-sm p-button-secondary"
-              label="Cancel"
-              (click)="cancel()"
-            ></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
+                                                      <h5>White Goods</h5>
+                                                      <table style="table-layout: fixed">
+                                                        <tr>
+                                                          <td>Cooker</td>
+                                                          <td>Oven</td>
+                                                          <td>Washing Machine</td>
+                                                          <td>Refrigerator</td>
+                                                          <td>Dishwasher</td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td>
+                                                            <input
+                                                              type="text"
+                                                              placeholder="Make"
+                                                              formControlName="cookerMakeCtrl"
+                                                              />
+                                                            </td>
+                                                            <td>
+                                                              <input
+                                                                type="text"
+                                                                placeholder="Make"
+                                                                formControlName="ovenMakeCtrl"
+                                                                />
+                                                              </td>
+                                                              <td>
+                                                                <input
+                                                                  type="text"
+                                                                  placeholder="Make"
+                                                                  formControlName="wmMakeCtrl"
+                                                                  />
+                                                                </td>
+                                                                <td>
+                                                                  <input
+                                                                    type="text"
+                                                                    placeholder="Make"
+                                                                    formControlName="refrigeratorMakeCtrl"
+                                                                    />
+                                                                  </td>
+                                                                  <td>
+                                                                    <input
+                                                                      type="text"
+                                                                      placeholder="Make"
+                                                                      formControlName="dishwasherMakeCtrl"
+                                                                      />
+                                                                    </td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                    <td>
+                                                                      <input
+                                                                        type="text"
+                                                                        placeholder="Model"
+                                                                        formControlName="cookerModelCtrl"
+                                                                        />
+                                                                      </td>
+                                                                      <td>
+                                                                        <input
+                                                                          type="text"
+                                                                          placeholder="Model"
+                                                                          formControlName="ovenModelCtrl"
+                                                                          />
+                                                                        </td>
+                                                                        <td>
+                                                                          <input
+                                                                            type="text"
+                                                                            placeholder="Model"
+                                                                            formControlName="wmModelCtrl"
+                                                                            />
+                                                                          </td>
+                                                                          <td>
+                                                                            <input
+                                                                              type="text"
+                                                                              placeholder="Model"
+                                                                              formControlName="refrigeratorModelCtrl"
+                                                                              />
+                                                                            </td>
+                                                                            <td>
+                                                                              <input
+                                                                                type="text"
+                                                                                placeholder="Model"
+                                                                                formControlName="dishwasherModelCtrl"
+                                                                                />
+                                                                              </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                              <td>
+                                                                                <input
+                                                                                  type="text"
+                                                                                  placeholder="SerialNo"
+                                                                                  formControlName="cookerSerialCtrl"
+                                                                                  />
+                                                                                </td>
+                                                                                <td>
+                                                                                  <input
+                                                                                    type="text"
+                                                                                    placeholder="SerialNo"
+                                                                                    formControlName="ovenSerialCtrl"
+                                                                                    />
+                                                                                  </td>
+                                                                                  <td>
+                                                                                    <input
+                                                                                      type="text"
+                                                                                      placeholder="SerialNo"
+                                                                                      formControlName="wmSerialCtrl"
+                                                                                      />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                      <input
+                                                                                        type="text"
+                                                                                        placeholder="SerialNo"
+                                                                                        formControlName="refrigeratorSerialCtrl"
+                                                                                        />
+                                                                                      </td>
+                                                                                      <td>
+                                                                                        <input
+                                                                                          type="text"
+                                                                                          placeholder="SerialNo"
+                                                                                          formControlName="dishwasherSerialCtrl"
+                                                                                          />
+                                                                                        </td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                        <td colSpan="5">
+                                                                                          <input
+                                                                                            type="text"
+                                                                                            placeholder="other"
+                                                                                            formControlName="otherCtrl"
+                                                                                            />
+                                                                                          </td>
+                                                                                        </tr>
+                                                                                      </table>
+                                                                                      <br />
+                                                                                      <div class="form-group col-md-4">
+                                                                                        <div class="d-flex justify-content-end">
+                                                                                          <button
+                                                                                            pButton
+                                                                                            type="submit"
+                                                                                            class="p-button-sm me-1"
+                                                                                            label="Add"
+                                                                                          ></button>
+                                                                                          <button
+                                                                                            pButton
+                                                                                            type="button"
+                                                                                            class="p-button-sm p-button-secondary"
+                                                                                            label="Cancel"
+                                                                                            (click)="cancel()"
+                                                                                          ></button>
+                                                                                        </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </form>
+                                                                              </div>
