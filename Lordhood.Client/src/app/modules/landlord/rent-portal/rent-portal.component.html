@@ -1,0 +1,134 @@
+<div class="container-fluid custom_container">
+  <div class="card mt-3 mb-2">
+    <div class="card-header bg-card-header">Rent Portal</div>
+    <div class="row" *ngIf="paymentDetails.length; else else_content">
+      <p-table
+        [value]="paymentDetails"
+        styleClass="p-datatable-gridlines p-datatable-sm"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [scrollable]="true"
+        scrollHeight="400px"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="custom_font_color">Month</th>
+            <th class="custom_font_color">Rent Amount</th>
+            <th class="custom_font_color">Rent Paid</th>
+            <th class="custom_font_color">Last Rent Paid Date</th>
+            <th class="custom_font_color">Due Date</th>
+            <th class="custom_font_color">Rent Due</th>
+            <!-- <th class="custom_font_color">Payment Mode</th> -->
+            <th class="custom_font_color">Late Payment Charges</th>
+            <th class="custom_font_color">Comments</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-property>
+          <tr>
+            <td>{{ property.month }}</td>
+            <td>{{ property.rentAmount }}</td>
+            <td>{{ property.rentPaid }}</td>
+            <td>{{ property.lastRentPaidDate | date }}</td>
+            <td>{{ property.rentDate | date }}</td>
+            <td>{{ property.rentDue }}</td>
+            <!-- <td>{{ property.paymentMode }}</td> -->
+            <td>{{ property.latePaymentCharges }}</td>
+            <td>{{ property.comments }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <ng-template #else_content
+      ><strong> No Payment History Found</strong></ng-template
+    >
+  </div>
+
+  <div class="form-group" *ngIf="paymentDetails.length">
+    <div class="row m-1 pt-4">
+      <div
+        class="col-md-2 add_pt"
+        *ngIf="userdetail.roleName && userdetail.roleName == 'Landlord'"
+      >
+        <input
+          #cashInput
+          type="text"
+          [(ngModel)]="cashAmount"
+          placeholder="Amount"
+          class="form-control"
+          currencyMask
+          [options]="{
+            align: 'left',
+            precision: 0,
+            allowNegative: false,
+            prefix: '£'
+          }"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div
+        class="col-md-2 add_pt"
+        *ngIf="userdetail.roleName && userdetail.roleName == 'Landlord'"
+      >
+        <button
+          pButton
+          type="button"
+          class="p-button-sm form-control"
+          label="Enter Cash Payment"
+          (click)="addCashAmount()"
+        ></button>
+      </div>
+
+      <div
+        class="col-md-2 add_pt"
+        *ngIf="userdetail.roleName && userdetail.roleName == 'Landlord'"
+      >
+        <input
+          type="text"
+          [(ngModel)]="lateChargeAmount"
+          placeholder="Amount"
+          class="form-control"
+          currencyMask
+          [options]="{
+            align: 'left',
+            precision: 0,
+            allowNegative: false,
+            prefix: '£'
+          }"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div
+        class="col-md-3 add_pt"
+        *ngIf="userdetail.roleName && userdetail.roleName == 'Landlord'"
+      >
+        <button
+          pButton
+          type="button"
+          class="p-button-sm form-control nowrap"
+          label="Enter Late Payment Charges"
+          (click)="addLateCharge()"
+        ></button>
+      </div>
+
+      <div
+        class="col-md-3 add_pt"
+        *ngIf="userdetail.roleName && userdetail.roleName == 'Landlord'"
+      >
+        <button
+          pButton
+          type="button"
+          class="p-button-sm form-control"
+          label="Send Payment Reminder"
+          (click)="sendPaymentReminder()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>

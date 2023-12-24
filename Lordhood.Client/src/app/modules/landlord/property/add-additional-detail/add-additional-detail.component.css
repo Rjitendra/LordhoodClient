@@ -1,0 +1,31 @@
+.custom_font_color {
+    /* font-weight: bold; */
+    font-size: 15px;
+    color: black;
+}
+
+.file_icon {
+    font-size: 10px;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 2px solid black;
+    text-align: left;
+    padding: 3px;
+  }
+  input[type="text"] {
+    width: 100%; 
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}
+td input, td button {
+  box-sizing:border-box;
+  display:block;
+  width:100%;
+}

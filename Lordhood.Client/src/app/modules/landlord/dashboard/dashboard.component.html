@@ -1,0 +1,63 @@
+<div class="container-fluid custom_container">
+  <div class="card mt-2 mb-2">
+    <div class="card-header bg-card-header">Board</div>
+    <div class="">
+      <p-table
+        [value]="board"
+        styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [scrollable]="true"
+        scrollHeight="400px"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="custom_font_color">Property Name</th>
+            <th class="custom_font_color">Rent Status</th>
+            <th class="custom_font_color">Rent</th>
+            <th class="custom_font_color">Total Issue</th>
+            <th class="custom_font_color">Next Rent Due On</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-property>
+          <tr>
+            <td>{{ property.propertyName }}</td>
+            <td>
+              {{
+                property.rentAmount != null
+                  ? property.rentDue <= 0.0
+                    ? "Paid"
+                    : "Rent Due"
+                  : "Rent Not Yet Generated"
+              }}
+            </td>
+            <td>
+              <a
+                href="javascript:void(0)"
+                [routerLink]="'/landlord/rent-portal/' + property.tenantId"
+                >View/Manage
+              </a>
+            </td>
+
+            <td>
+              <span *ngIf="property.totalIssue; else ed">
+                <a
+                  href="javascript:void(0)"
+                  routerLink="/landlord/tenant/issue-tracker"
+                  >{{ property.totalIssue }}
+                </a>
+              </span>
+              <ng-template #ed>{{ property.totalIssue }}</ng-template>
+            </td>
+            <td>
+              {{
+                property.nextRentDueOn != null
+                  ? (property.nextRentDueOn | date : "dd/MM/yyyy")
+                  : "Rent Not Yet Generated"
+              }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

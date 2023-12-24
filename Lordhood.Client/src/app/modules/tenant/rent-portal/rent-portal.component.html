@@ -1,0 +1,135 @@
+<div class="container-fluid custom_container">
+  <div class="d-flex justify-content-end mt-1">
+    <button
+      pButton
+      type="button"
+      class="p-button-sm p-button-secondary"
+      label="Back"
+      routerLink="/"
+    ></button>
+  </div>
+  <div class="card mt-1 mb-1">
+    <div class="card-header bg-card-header">Rent Portal</div>
+    <div class="row" *ngIf="paymentDetails.length; else else_content">
+      <p-table
+        [value]="paymentDetails"
+        styleClass="p-datatable-gridlines p-datatable-sm"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [scrollable]="true"
+        scrollHeight="400px"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="custom_font_color">Month</th>
+            <th class="custom_font_color">Rent Amount</th>
+            <th class="custom_font_color">Rent Paid</th>
+            <th class="custom_font_color">Last Rent Paid Date</th>
+            <th class="custom_font_color">Due Date</th>
+            <th class="custom_font_color">Rent Due</th>
+            <!-- <th class="custom_font_color">Payment Mode</th> -->
+            <th class="custom_font_color">Late Payment Charges</th>
+            <th class="custom_font_color">Comments</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-property>
+          <tr>
+            <td>{{ property.month }}</td>
+            <td>{{ property.rentAmount }}</td>
+            <td>{{ property.rentPaid }}</td>
+            <td>{{ property.lastRentPaidDate | date }}</td>
+            <td>{{ property.rentDate | date }}</td>
+            <td>{{ property.rentDue }}</td>
+            <!-- <td>{{ property.paymentMode }}</td> -->
+            <td>{{ property.latePaymentCharges }}</td>
+            <td>{{ property.comments }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <ng-template #else_content
+      ><strong> No Payment History Found</strong></ng-template
+    >
+  </div>
+
+  <div class="form-group" *ngIf="paymentDetails.length">
+    <div class="row m-1 pt-4">
+      <div
+        class="pt-1"
+        *ngIf="userdetail.roleName && userdetail.roleName == 'Tenant'"
+      >
+        <div class="d-flex justify-content-center">
+          <button
+            pButton
+            type="button"
+            class="p-button-sm me-1"
+            label="Online Payment"
+            (click)="makeOnlinePayment()"
+          ></button>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="custom_container p-1 mt-2"
+    *ngIf="
+      userdetail.roleName &&
+      userdetail.roleName == 'Tenant' &&
+      isMakeOnlinePayment
+    "
+  >
+    <form [formGroup]="amountForm" (ngSubmit)="checkout()">
+      <div class="row">
+        <label for="amount">Amount</label>
+        <div class="col-md-4">
+          <div class="form-group">
+            <input
+              id="amount"
+              type="text"
+              name="amount"
+              currencyMask
+              [options]="{
+                align: 'left',
+                precision: 0,
+                allowNegative: false,
+                prefix: '£'
+              }"
+              autocomplete="off"
+              (paste)="onPaste($event)"
+              (copy)="onCopy($event)"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmitAmount && f['amountControl'].errors
+              }"
+              formControlName="amountControl"
+            />
+            <div
+              *ngIf="isSubmitAmount && f['amountControl'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['amountControl'].errors['required']">
+                Field is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="padding-mobile">
+            <button
+              pButton
+              type="submit"
+              class="p-button-sm"
+              label="submit"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

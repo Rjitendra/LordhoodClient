@@ -1,0 +1,788 @@
+<!-- In your component template -->
+
+<div class="container-fluid custom_container" id="pbody">
+  <h4>Add Property</h4>
+
+  <hr />
+  <div class="custom_container">
+    <form [formGroup]="propertyForm" (ngSubmit)="submit(propertyForm)">
+      <div class="row m-1">
+        <div class="form-group col-md-3">
+          <label for="nameCtrl" class="">Assign a Name</label>
+          <input
+            type="text"
+            id="nameCtrl"
+            class="form-control"
+            placeholder="Assign a Name"
+            [ngClass]="{ 'is-invalid': submitted && f['nameCtrl'].errors }"
+            formControlName="nameCtrl"
+          />
+          <div
+            *ngIf="submitted && f['nameCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['nameCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['nameCtrl'].errors['maxlength']">
+              Maximum length is
+              {{ f["nameCtrl"].errors["maxlength"].requiredLength }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="addressCtrl" class="">Address</label>
+          <p-autoComplete
+            [inputStyleClass]="
+              submitted && f['addressCtrl'].errors ? 'red-bar' : ''
+            "
+            formControlName="addressCtrl"
+            (onSelect)="onSelectAddress($event)"
+            [suggestions]="addressSuggestions"
+            (completeMethod)="searchAddresses($event)"
+            field="address"
+            appendTo="body"
+            placeholder="Enter Address or Postcode"
+            [ngClass]="{ 'is-invalid': submitted && f['addressCtrl'].errors }"
+          ></p-autoComplete>
+          <div
+            *ngIf="submitted && f['addressCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['addressCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['addressCtrl'].errors['maxlength']">
+              Maximum length is
+              {{ f["addressCtrl"].errors["maxlength"].requiredLength }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="postCodeCtrl" class="">Postcode</label>
+          <input
+            type="text"
+            id="postCodeCtrl"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['postCodeCtrl'].errors }"
+            formControlName="postCodeCtrl"
+          />
+          <div
+            *ngIf="submitted && f['postCodeCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['postCodeCtrl'].errors['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label for="profileOfTitleCtrl" class="">Upload Proof of Title</label>
+          <input
+            type="file"
+            id="profileOfTitleCtrl"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'profiletitle')"
+            [ngClass]="{
+              'is-invalid': submitted && f['profileOfTitleCtrl'].errors
+            }"
+            formControlName="profileOfTitleCtrl"
+          />
+
+          <div
+            *ngIf="submitted && f['profileOfTitleCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['profileOfTitleCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['profileOfTitleCtrl'].errors['invalidFileFormat']">
+              Only PDF files are allowed
+            </div>
+            <div *ngIf="f['profileOfTitleCtrl'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-1">
+        <div class="form-group col-md-4">
+          <label for="gasSafetyCtrl" class=""
+            >GSC (<em>Expiry 2 years</em>)</label
+          >
+          <input
+            type="file"
+            id="gasSafetyCtrl"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'gassafety')"
+            [ngClass]="{ 'is-invalid': submitted && f['gasSafetyCtrl'].errors }"
+            formControlName="gasSafetyCtrl"
+          />
+          <div
+            *ngIf="submitted && f['gasSafetyCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['gasSafetyCtrl'].errors['customRequired']">
+              Field is required
+            </div>
+            <div *ngIf="f['gasSafetyCtrl'].errors['invalidFileFormat']">
+              Only PDF files are allowed
+            </div>
+            <div *ngIf="f['gasSafetyCtrl'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="gasSafetyExpiryCtrl" class="">Expiry On</label>
+
+          <p-calendar
+            [inputStyleClass]="
+              submitted && f['gasSafetyExpiryCtrl'].errors ? 'red-bar' : ''
+            "
+            [showIcon]="true"
+            inputId="icon"
+            placeholder="Expiry On"
+            appendTo="body"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            formControlName="gasSafetyExpiryCtrl"
+            [ngClass]="{
+              'is-invalid': submitted && f['eicrExpiryCtrl'].errors
+            }"
+          ></p-calendar>
+          <div
+            *ngIf="submitted && f['gasSafetyExpiryCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['gasSafetyExpiryCtrl'].errors['customRequired']">
+              Field is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="featuresCtrl" class="">Enter Property Features</label>
+          <input
+            type="text"
+            id="featuresCtrl"
+            class="form-control"
+            placeholder="Enter Property Features"
+            formControlName="featuresCtrl"
+            [ngClass]="{ 'is-invalid': submitted && f['featuresCtrl'].errors }"
+          />
+          <div
+            *ngIf="submitted && f['featuresCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['featuresCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['featuresCtrl'].errors['maxlength']">
+              Maximum length is
+              {{ f["featuresCtrl"].errors["maxlength"].requiredLength }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-1">
+        <div class="form-group col-md-3">
+          <label for="energyPerformanceCtrl" class=""
+            >EPC (<em>Expiry 10 years</em>)</label
+          >
+          <input
+            type="file"
+            id="energyPerformanceCtrl"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'energyperformance')"
+            [ngClass]="{
+              'is-invalid': submitted && f['energyPerformanceCtrl'].errors
+            }"
+            formControlName="energyPerformanceCtrl"
+          />
+          <div
+            *ngIf="submitted && f['energyPerformanceCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['energyPerformanceCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['energyPerformanceCtrl'].errors['invalidFileFormat']">
+              Only PDF files are allowed
+            </div>
+            <div
+              *ngIf="f['energyPerformanceCtrl'].errors['maxFileSizeExceeded']"
+            >
+              Maximum file size exceeded
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="energyPerformanceExpiryCtrl" class="">Expiry On</label>
+
+          <p-calendar
+            [inputStyleClass]="
+              submitted && f['energyPerformanceExpiryCtrl'].errors
+                ? 'red-bar'
+                : ''
+            "
+            appendTo="body"
+            [showIcon]="true"
+            inputId="icon"
+            placeholder="Expiry On"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            formControlName="energyPerformanceExpiryCtrl"
+            [ngClass]="{
+              'is-invalid': submitted && f['energyPerformanceExpiryCtrl'].errors
+            }"
+          ></p-calendar>
+          <div
+            *ngIf="submitted && f['energyPerformanceExpiryCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['energyPerformanceExpiryCtrl'].errors['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="eicrCtrl" class="">EICR (<em>Expiry 5 years</em>)</label>
+          <input
+            type="file"
+            id="eicrCtrl"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'eicr')"
+            [ngClass]="{ 'is-invalid': submitted && f['eicrCtrl'].errors }"
+            formControlName="eicrCtrl"
+          />
+          <div
+            *ngIf="submitted && f['eicrCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['eicrCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['eicrCtrl'].errors['invalidFileFormat']">
+              Only PDF files are allowed
+            </div>
+            <div *ngIf="f['eicrCtrl'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="eicrExpiryCtrl" class="">Expiry On</label>
+
+          <p-calendar
+            [inputStyleClass]="
+              submitted && f['eicrExpiryCtrl'].errors ? 'red-bar' : ''
+            "
+            [showIcon]="true"
+            appendTo="body"
+            inputId="icon"
+            placeholder="Expiry On"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            formControlName="eicrExpiryCtrl"
+            [ngClass]="{
+              'is-invalid': submitted && f['eicrExpiryCtrl'].errors
+            }"
+          ></p-calendar>
+          <div
+            *ngIf="submitted && f['eicrExpiryCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['eicrExpiryCtrl'].errors['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-1 pt-2">
+        <div class="d-flex justify-content-end">
+          <button
+            pButton
+            type="submit"
+            class="p-button-sm me-1"
+            label="Add"
+          ></button>
+          <button
+            pButton
+            type="button"
+            class="p-button-sm p-button-secondary"
+            label="Reset"
+            (click)="reset()"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="card mt-3 mb-2">
+    <div class="card-header bg-card-header">Property</div>
+
+    <div class="row" *ngIf="properties.length > 0; else elseContent">
+      <p-table
+        [value]="properties"
+        styleClass="p-datatable-gridlines p-datatable-sm"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [scrollable]="true"
+        [lazy]="true"
+        scrollHeight="350px"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="font_header">Property Name</th>
+            <th class="font_header">Address</th>
+            <th class="font_header">Proof Of Title</th>
+            <th class="font_header">EICR Certificate</th>
+            <th class="font_header">Gas Safety Certificate</th>
+            <th class="font_header">EPC Certificate</th>
+            <th class="font_header">Mapped Tenant</th>
+            <th class="font_header">Update Certificates</th>
+            <th class="font_header text-center">Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-property>
+          <tr class="custom_font_color">
+            <td
+              class="truncate"
+              pTooltip="{{ property.name }}"
+              [tooltipPosition]="'right'"
+              [appendTo]="'body'"
+              [fitContent]="true"
+            >
+              {{ property.name }}
+            </td>
+            <td
+              class="truncate"
+              pTooltip="{{ property.address }}"
+              [tooltipPosition]="'right'"
+              [appendTo]="'body'"
+              [fitContent]="true"
+            >
+              {{ property.address }}
+            </td>
+            <td>
+              <a
+                *ngIf="property.profileOfTitleFileName; else ptf"
+                href="javascript:void(0)"
+                (click)="
+                  downloadFile(
+                    downloadType.ProofOfTitle,
+                    property.profileOfTitleFileName,
+                    property.id
+                  )
+                "
+                >Download</a
+              >
+              <ng-template #ptf>Not Available</ng-template>
+            </td>
+            <td [ngClass]="getClassForDate(property.eicrExpiryDate)">
+              <span *ngIf="property.eicrFileName; else ed">
+                <a
+                  href="javascript:void(0)"
+                  (click)="
+                    downloadFile(
+                      downloadType.EICRCertificate,
+                      property.eicrFileName,
+                      property.id
+                    )
+                  "
+                  >Download
+                </a>
+                <span class="nowrap">
+                  Renew on
+                  {{ property.eicrExpiryDate | date : "dd/MM/yyyy" }}</span
+                >
+              </span>
+              <ng-template #ed>Not Available</ng-template>
+            </td>
+            <td [ngClass]="getClassForDate(property.gasSafetyExpiryDate)">
+              <span *ngIf="property.gasSafetyFileName; else gcf">
+                <a
+                  href="javascript:void(0)"
+                  (click)="
+                    downloadFile(
+                      downloadType.GasSafetyCertificate,
+                      property.gasSafetyFileName,
+                      property.id
+                    )
+                  "
+                  >Download
+                </a>
+                <span class="nowrap"
+                  >Renew on
+                  {{ property.gasSafetyExpiryDate | date : "dd/MM/yyyy" }}
+                </span>
+              </span>
+              <ng-template #gcf>Not Available</ng-template>
+            </td>
+            <td
+              [ngClass]="getClassForDate(property.energyPerformanceExpiryDate)"
+            >
+              <span *ngIf="property.energyPerformanceFileName; else gcf">
+                <a
+                  href="javascript:void(0)"
+                  (click)="
+                    downloadFile(
+                      downloadType.EPCCertificate,
+                      property.energyPerformanceFileName,
+                      property.id
+                    )
+                  "
+                  >Download
+                </a>
+                <span class="nowrap"
+                  >Renew on
+                  {{
+                    property.energyPerformanceExpiryDate | date : "dd/MM/yyyy"
+                  }}
+                </span>
+              </span>
+              <ng-template #gcf>Not Available</ng-template>
+            </td>
+            <td class="nowrap">
+              <a
+                href="javascript:void(0)"
+                (click)="
+                  getTenantListByPropertyIdOverlayPanel(property, op, $event)
+                "
+                >Show Tenant</a
+              >
+              <p-overlayPanel #op [showCloseIcon]="true" appendTo="body">
+                <ng-template pTemplate>
+                  <div [ngSwitch]="switchValueForOverlayPanel">
+                    <div *ngSwitchCase="'value1'">
+                      <div
+                        style="height: 200px; width: 200px; overflow-y: auto"
+                        *ngIf="tenantListByPropertyId.length"
+                      >
+                        <ul class="list-group">
+                          <li
+                            class="list-group-item active"
+                            aria-current="true"
+                            style="position: sticky; top: 0"
+                          >
+                            Name
+                          </li>
+                          <li
+                            class="list-group-item"
+                            *ngFor="let item of tenantListByPropertyId"
+                          >
+                            {{ item.name }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'value2'">
+                      <div
+                        class="d-flex align-items-center justify-content-center"
+                        style="height: 100px; width: 200px; color: red"
+                      >
+                        <strong>Pending for Approval</strong>
+                      </div>
+                    </div>
+
+                    <div *ngSwitchCase="'value3'">
+                      <div
+                        class="d-flex align-items-center justify-content-center"
+                        style="height: 100px; width: 200px; color: red"
+                      >
+                        <strong>No Active Tenant Added</strong>
+                      </div>
+                    </div>
+
+                    <div *ngSwitchDefault></div>
+                  </div>
+                </ng-template>
+              </p-overlayPanel>
+            </td>
+            <td class="nowrap">
+              <a href="javascript:void(0)" (click)="updateCertificate(property)"
+                >Update</a
+              >
+            </td>
+
+            <td class="nowrap">
+              <button
+                pButton
+                pRipple
+                type="button"
+                [tooltipPosition]="'left'"
+                [appendTo]="'body'"
+                [fitContent]="true"
+                pTooltip="Add More Detail"
+                class="p-button-rounded p-button-info"
+                (click)="additionalDetail(property)"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+
+              <button
+                pButton
+                pRipple
+                type="button"
+                [tooltipPosition]="'left'"
+                [appendTo]="'body'"
+                [fitContent]="true"
+                pTooltip="View"
+                class="p-button-rounded"
+                (click)="viewDetail(property)"
+              >
+                <i class="fa fa-eye"></i>
+              </button>
+
+              <button
+                pButton
+                pRipple
+                type="button"
+                [tooltipPosition]="'left'"
+                [pTooltip]="'Delete'"
+                [appendTo]="'body'"
+                [fitContent]="true"
+                class="p-button-rounded p-button-danger"
+                (click)="deleteConfirm(property, $event)"
+                [disabled]="disbaleDeleteButton"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <ng-template #elseContent
+      ><div
+        class="d-flex align-items-center justify-content-center"
+        style="border: 1px solid green"
+      >
+        <strong>No Property Added</strong>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<p-dialog
+  header="Update Certificates"
+  [(visible)]="displayMaximizable"
+  [modal]="true"
+  [style]="{ width: '60vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <div class="container-fluid custom_container pt-2 pb-4">
+    <form
+      [formGroup]="updateCertificateform"
+      (ngSubmit)="updateCertificateForm(updateCertificateform)"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <label for="gasSafetygasSafety" class="form-label"
+            >Gas Safety Certificate</label
+          >
+          <input
+            type="file"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'u-gassafety')"
+            [ngClass]="{
+              'is-invalid': submittedCertificate && uc['gasSafety'].errors
+            }"
+            formControlName="gasSafety"
+          />
+          <div
+            *ngIf="submittedCertificate && uc['gasSafety'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="uc['gasSafety'].errors['invalidFileFormat']">
+              Only PDF files are allowed
+            </div>
+            <div *ngIf="uc['gasSafety'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+            <div *ngIf="uc['gasSafety'].errors['customRequired']">
+              field is required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="gasSafetyExpiry" class="form-label">Expiry On</label>
+          <p-calendar
+            inputStyleClass="width: 250px;"
+            [inputStyleClass]="
+              submittedCertificate && uc['gasSafetyExpiry'].errors
+                ? 'red-bar'
+                : ''
+            "
+            [showIcon]="true"
+            appendTo="body"
+            inputId="icon"
+            placeholder="Expiry On"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            formControlName="gasSafetyExpiry"
+            [ngClass]="{
+              'is-invalid': submittedCertificate && uc['gasSafetyExpiry'].errors
+            }"
+          ></p-calendar>
+          <div
+            *ngIf="submittedCertificate && uc['gasSafetyExpiry'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="uc['gasSafetyExpiry'].errors['customRequired']">
+              Field is required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="" class="form-label">EPC Certificate</label>
+          <input
+            type="file"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'u-energyperformance')"
+            [ngClass]="{
+              'is-invalid':
+                submittedCertificate && uc['energyPerformance'].errors
+            }"
+            formControlName="energyPerformance"
+          />
+          <div
+            *ngIf="submittedCertificate && uc['energyPerformance'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="uc['energyPerformance'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="uc['energyPerformance'].errors['invalidFileFormat']">
+              Only PDF files are allowed
+            </div>
+            <div *ngIf="uc['energyPerformance'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+            <div *ngIf="uc['energyPerformance'].errors['customRequired']">
+              field is required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="" class="form-label">Expiry On</label>
+          <p-calendar
+            [inputStyleClass]="
+              submittedCertificate && uc['energyPerformanceExpiry'].errors
+                ? 'red-bar'
+                : ''
+            "
+            [showIcon]="true"
+            appendTo="body"
+            inputId="icon"
+            placeholder="Expiry On"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            formControlName="energyPerformanceExpiry"
+            [ngClass]="{
+              'is-invalid':
+                submittedCertificate && uc['energyPerformanceExpiry'].errors
+            }"
+          ></p-calendar>
+          <div
+            *ngIf="submittedCertificate && uc['energyPerformanceExpiry'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="uc['energyPerformanceExpiry'].errors['customRequired']">
+              Field is required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="" class="form-label">EICR Certificate</label>
+          <input
+            type="file"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'u-eicr')"
+            [ngClass]="{
+              'is-invalid': submittedCertificate && uc['eicr'].errors
+            }"
+            formControlName="eicr"
+          />
+          <div
+            *ngIf="submittedCertificate && uc['eicr'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="uc['eicr'].errors['required']">Field is required</div>
+            <div *ngIf="uc['eicr'].errors['invalidFileFormat']">
+              Only PDF files are allowed
+            </div>
+            <div *ngIf="uc['eicr'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+            <div *ngIf="uc['eicr'].errors['customRequired']">
+              field is required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" #eicrExpiry>
+          <label for="" class="form-label">Expiry On</label>
+          <p-calendar
+            [inputStyleClass]="
+              submittedCertificate && uc['eicrExpiry'].errors ? 'red-bar' : ''
+            "
+            [showIcon]="true"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            appendTo="body"
+            inputId="icon"
+            placeholder="Expiry On"
+            formControlName="eicrExpiry"
+            [ngClass]="{
+              'is-invalid': submittedCertificate && uc['eicrExpiry'].errors
+            }"
+          ></p-calendar>
+          <div
+            *ngIf="submittedCertificate && uc['eicrExpiry'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="uc['eicrExpiry'].errors['customRequired']">
+              Field is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-2">
+        <div class="d-flex justify-content-end">
+          <button
+            pButton
+            type="submit"
+            class="p-button-sm"
+            label="Submit"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template pTemplate="content">
+    <div class="center-block" *ngIf="isUpdateCertificatesLoader">
+      <p-progressSpinner
+        [style]="{ width: '50px', height: '50px' }"
+        fill="var(--surface-ground)"
+        animationDuration=".5s"
+      ></p-progressSpinner>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button (click)="displayMaximizable = false" label="Close"></p-button>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,18 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+  }
+  .fit-cell {
+    white-space: nowrap; /* Prevent content from wrapping to the next line */
+    overflow: hidden; /* Hide any overflowing content */
+    text-overflow: ellipsis; /* Display an ellipsis (...) when content overflows */
+    max-width: 100%; /* Ensure content doesn't exceed cell's width */
+  }
+ 

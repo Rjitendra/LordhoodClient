@@ -1,0 +1,280 @@
+<div class="container-fluid custom_container p-3">
+  <h4>Property Detail</h4>
+  <hr />
+  <div class="row" *ngIf="property">
+    <div class="col-md-6" id="propertydetail">
+      <div class="row pb-5">
+        <div class="col-md-8">
+          <div class="pb-2">
+            <button pButton type="button" class="p-button-sm mr-1" label="Export to Excel" (click)="
+                exportTable(
+                  'propertydetail',
+                  'Property Detail',
+                  'PropertyDetail.xlsx'
+                )
+              "></button>
+          </div>
+          <table class="table-layout_fixed">
+            <tr>
+              <td>Property Name</td>
+              <td>{{ property.name }}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{{ property.address }}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4 d-flex flex-column pt-1"></div>
+      </div>
+      <table class="table-layout_fixed">
+        <tr>
+          <td>Council Details</td>
+          <td colspan="2">{{ property.councilInformation }}</td>
+        </tr>
+        <tr>
+          <td>Electricity Provider</td>
+          <td>{{ property.electricityProvider }}</td>
+          <td>Reading: {{ property.electricityProviderLatestReading }}</td>
+        </tr>
+        <tr>
+          <td>Gas Provider</td>
+          <td>{{ property.gasProvider }}</td>
+          <td>Reading: {{ property.gasProviderLatestReading }}</td>
+        </tr>
+        <tr>
+          <td>Water Provider</td>
+          <td>{{ property.waterProvider }}</td>
+          <td>Reading: {{ property.waterProviderLatestReading }}</td>
+        </tr>
+        <tr>
+          <td>Room Details</td>
+          <td colspan="2">{{ property.roomDetail }}</td>
+        </tr>
+        <tr>
+          <td>Toilet Details</td>
+          <td colspan="2">{{ property.toiletDetail }}</td>
+        </tr>
+        <tr>
+          <td style="word-wrap: break-word;"> Garage/Parking/Garden/ Balcony Details</td>
+          <td colspan="2">{{ property.spaceDetail }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col pb-2">
+          <div class="d-flex justify-content-center">
+            <div class="row">
+              <h5>Floor Plan</h5>
+            </div>
+          </div>
+        </div>
+        <div class="pdf-viewer_outer-div">
+          <pdf-viewer [src]="pdfSrc" [render-text]="true" [original-size]="true" [zoom]="zoom_to"
+            class="pdf-viewer_height_width"></pdf-viewer>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button pButton pRipple type="button" pTooltip="Add More Detail" class="p-button-rounded" (click)="zoom_in()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+
+          <button pButton pRipple type="button" pTooltip="Add More Detail" class="p-button-rounded"
+            (click)="zoom_out()">
+            <i class="fa fa-minus" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="col pt-3 pb-3">
+          <div class="d-flex justify-content-end">
+            <div class="row">
+              <button pButton type="button" class="p-button-sm mr-1" label="Export to Excel" (click)="
+                  exportTable('whitegood', 'White Goods', 'WhiteGoods.xlsx')
+                "></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <div class="row">
+              <h5>White Goods</h5>
+            </div>
+          </div>
+        </div>
+        <table class="table-layout_fixed" id="whitegood">
+          <tr>
+            <td>Cooker</td>
+            <td>Oven</td>
+            <td>Cooker</td>
+            <td>Oven</td>
+            <td>Cooker</td>
+          </tr>
+          <tr>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[0] && property.whiteGoods[0].make }}">
+              Make:{{
+              property.whiteGoods &&
+              property.whiteGoods[0] &&
+              property.whiteGoods[0].make
+              ? property.whiteGoods[0].make
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[1] && property.whiteGoods[1].make }}">
+              Make:{{
+              property.whiteGoods &&
+              property.whiteGoods[1] &&
+              property.whiteGoods[1].make
+              ? property.whiteGoods[1].make
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[2] && property.whiteGoods[2].make }}">
+              Make:{{
+              property.whiteGoods &&
+              property.whiteGoods[2] &&
+              property.whiteGoods[2].make
+              ? property.whiteGoods[2].make
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[3] && property.whiteGoods[3].make }}">
+              Make:{{
+              property.whiteGoods &&
+              property.whiteGoods[3] &&
+              property.whiteGoods[3].make
+              ? property.whiteGoods[3].make
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[4] && property.whiteGoods[4].make }}">
+              Make:{{
+              property.whiteGoods &&
+              property.whiteGoods[4] &&
+              property.whiteGoods[4].make
+              ? property.whiteGoods[4].make
+              : ""
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[0] && property.whiteGoods[0].model }}">
+              Model:{{
+              property.whiteGoods &&
+              property.whiteGoods[0] &&
+              property.whiteGoods[0].model
+              ? property.whiteGoods[0].model
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[1] && property.whiteGoods[1].model }}">
+              Model:{{
+              property.whiteGoods &&
+              property.whiteGoods[1] &&
+              property.whiteGoods[1].model
+              ? property.whiteGoods[1].model
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[2] && property.whiteGoods[2].model }}">
+              Model:{{
+              property.whiteGoods &&
+              property.whiteGoods[2] &&
+              property.whiteGoods[2].model
+              ? property.whiteGoods[2].model
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[3] && property.whiteGoods[3].model }}">
+              Model:{{
+              property.whiteGoods &&
+              property.whiteGoods[3] &&
+              property.whiteGoods[3].model
+              ? property.whiteGoods[3].model
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[4] && property.whiteGoods[4].model }}">
+              Model:{{
+              property.whiteGoods &&
+              property.whiteGoods[4] &&
+              property.whiteGoods[4].model
+              ? property.whiteGoods[4].model
+              : ""
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[0] && property.whiteGoods[0].serialNo }}">
+              SerialNo:{{
+              property.whiteGoods &&
+              property.whiteGoods[0] &&
+              property.whiteGoods[0].serialNo
+              ? property.whiteGoods[0].serialNo
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[1] && property.whiteGoods[1].serialNo }}">
+              SerialNo:{{
+              property.whiteGoods &&
+              property.whiteGoods[1] &&
+              property.whiteGoods[1].serialNo
+              ? property.whiteGoods[1].serialNo
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[2] && property.whiteGoods[2].serialNo }}">
+              SerialNo:{{
+              property.whiteGoods &&
+              property.whiteGoods[2] &&
+              property.whiteGoods[2].serialNo
+              ? property.whiteGoods[2].serialNo
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[3] && property.whiteGoods[3].serialNo }}">
+              SerialNo:{{
+              property.whiteGoods &&
+              property.whiteGoods[3] &&
+              property.whiteGoods[3].serialNo
+              ? property.whiteGoods[3].serialNo
+              : ""
+              }}
+            </td>
+            <td class="fit-cell" [tooltipPosition]="'left'" [appendTo]="'body'" [fitContent]="true"
+              pTooltip="{{ property.whiteGoods && property.whiteGoods[4] && property.whiteGoods[4].serialNo }}">
+              SerialNo:{{
+              property.whiteGoods &&
+              property.whiteGoods[4] &&
+              property.whiteGoods[4].serialNo
+              ? property.whiteGoods[4].serialNo
+              : ""
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td colSpan="5" class="fit-cell">
+              Other:{{
+              property.whiteGoods &&
+              property.whiteGoods[5] &&
+              property.whiteGoods[5].description
+              ? property.whiteGoods[5].description
+              : ""
+              }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

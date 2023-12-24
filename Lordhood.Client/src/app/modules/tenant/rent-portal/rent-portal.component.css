@@ -1,0 +1,11 @@
+input[type="text"] {
+  height: 34px;
+  margin-top: 0px;
+}
+
+@media (max-width: 980px) {
+  .add_pt {
+   padding-top: 5px !important;
+  }
+  .padding-mobile{padding-top: 1px;}
+}

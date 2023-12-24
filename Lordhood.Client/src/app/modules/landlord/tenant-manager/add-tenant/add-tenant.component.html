@@ -1,0 +1,700 @@
+<div class="container-fluid custom_container">
+  <h4>Add Tenant</h4>
+  <hr />
+  <div class="custom_container p-1">
+    <form [formGroup]="form" (ngSubmit)="confirmSubmit(form)">
+      <div class="row m-1 pt-1">
+        <div class="form-group col-sm">
+          <label for="nameCtrl">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nameCtrl"
+            [ngClass]="{ 'is-invalid': submitted && f['nameCtrl'].errors }"
+            formControlName="nameCtrl"
+          />
+          <div
+            *ngIf="submitted && f['nameCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['nameCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['nameCtrl'].errors['maxlength']">
+              Maximum length is
+              {{ f["nameCtrl"].errors["maxlength"].requiredLength }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm">
+          <label for="emailCtrl">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="emailCtrl"
+            [ngClass]="{ 'is-invalid': submitted && f['emailCtrl'].errors }"
+            formControlName="emailCtrl"
+          />
+          <div
+            *ngIf="submitted && f['emailCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['emailCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['emailCtrl'].errors['email']">
+              Invalid email address
+            </div>
+            <div *ngIf="f['emailCtrl'].errors['maxlength']">
+              Maximum length is
+              {{ f["emailCtrl"].errors["maxlength"].requiredLength }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm">
+          <label for="dobCtrl">Date of Birth</label>
+          <p-calendar
+            [style]="{ width: '100%' }"
+            [inputStyleClass]="
+              submitted && f['dobCtrl'].errors
+                ? 'form-control red-bar'
+                : 'form-control'
+            "
+            id="dobCtrl"
+            [showIcon]="true"
+            inputId="icon"
+            [ngClass]="{ 'is-invalid': submitted && f['dobCtrl'].errors }"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            appendTo="body"
+            [monthNavigator]="true"
+            [yearNavigator]="true"
+            yearRange="2000:2099"
+            formControlName="dobCtrl"
+          ></p-calendar>
+          <div
+            *ngIf="submitted && f['dobCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['dobCtrl'].errors['required']">Field is required</div>
+          </div>
+        </div>
+        <div class="form-group col-sm">
+          <label for="occupationCtrl">Occupation</label>
+          <input
+            type="text"
+            class="form-control"
+            id="occupationCtrl"
+            [ngClass]="{
+              'is-invalid': submitted && f['occupationCtrl'].errors
+            }"
+            formControlName="occupationCtrl"
+          />
+          <div
+            *ngIf="submitted && f['occupationCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['occupationCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['occupationCtrl'].errors['maxlength']">
+              Maximum length is
+              {{ f["occupationCtrl"].errors["maxlength"].requiredLength }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-1 pt-1">
+        <div class="form-group col-sm">
+          <label for="propertyCtrl">Link Property</label>
+          <p-dropdown
+            [options]="propertyDropDown"
+            id="propertyCtrl"
+            placeholder="Select a Property"
+            optionLabel="name"
+            [showClear]="false"
+            StyleClass="form-control"
+            [ngClass]="{
+              'is-invalid ng-invalid ng-dirty':
+                submitted && f['propertyCtrl'].errors
+            }"
+            (onChange)="getPrimaryUserDetails($event.value)"
+            formControlName="propertyCtrl"
+          ></p-dropdown>
+          <div
+            *ngIf="submitted && f['propertyCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['propertyCtrl'].errors['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm">
+          <label for="rentAmountCtrl">Rent Amount</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f['rentAmountCtrl'].errors
+            }"
+            id="rentAmountCtrl"
+            currencyMask
+            [options]="{
+              align: 'left',
+              precision: 0,
+              allowNegative: false,
+              prefix: '£'
+            }"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            formControlName="rentAmountCtrl"
+          />
+
+          <div
+            *ngIf="submitted && f['rentAmountCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['rentAmountCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['rentAmountCtrl'].errors['maxlength']">
+              Maximum length is
+              {{ f["rentAmountCtrl"].errors["maxlength"].requiredLength }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-sm">
+          <label for="tenacyStartDateCtrl">Tenancy StartDate</label>
+          <p-calendar
+            [style]="{ width: '100%' }"
+            [showIcon]="true"
+            [minDate]="minDateTenancyStratDate"
+            [inputStyleClass]="
+              submitted && f['tenacyStartDateCtrl'].errors
+                ? 'form-control red-bar'
+                : 'form-control'
+            "
+            id="tenacyStartDateCtrl"
+            inputId="icon"
+            [ngClass]="{
+              'is-invalid': submitted && f['tenacyStartDateCtrl'].errors
+            }"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            appendTo="body"
+            [monthNavigator]="true"
+            [yearNavigator]="true"
+            yearRange="2000:2099"
+            (onSelect)="onChanges()"
+            formControlName="tenacyStartDateCtrl"
+          ></p-calendar>
+          <div
+            *ngIf="submitted && f['tenacyStartDateCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['tenacyStartDateCtrl'].errors['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-sm">
+          <label for="rentDueDateCtrl">Rent DueDate</label>
+          <p-calendar
+            [style]="{ width: '100%' }"
+            [showIcon]="true"
+            id="rentDueDateCtrl"
+            [inputStyleClass]="
+              submitted && f['rentDueDateCtrl'].errors
+                ? 'form-control red-bar'
+                : 'form-control'
+            "
+            inputId="icon"
+            [ngClass]="{
+              'is-invalid': submitted && f['rentDueDateCtrl'].errors
+            }"
+            [readonlyInput]="true"
+            dateFormat="dd/mm/yy"
+            [minDate]="minDateTenancyDueDate"
+            [maxDate]="maxDateTenancyDueDate"
+            formControlName="rentDueDateCtrl"
+            appendTo="body"
+            [monthNavigator]="true"
+            [yearNavigator]="true"
+            yearRange="2000:2099"
+          ></p-calendar>
+          <div
+            *ngIf="submitted && f['rentDueDateCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['rentDueDateCtrl'].errors['required']">
+              Field is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-1 pt-1">
+        <div class="form-group col-sm">
+          <label for="primaryCtrl">Primary</label>
+          <div class="form-control form-control-borderless">
+            <p-inputSwitch
+              id="primaryCtrl"
+              formControlName="primaryCtrl"
+              [ngClass]="{ 'is-invalid': submitted && f['primaryCtrl'].errors }"
+            ></p-inputSwitch>
+            <div
+              *ngIf="submitted && f['primaryCtrl'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['primaryCtrl'].errors['customRequired']">
+                Field is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-sm">
+          <label for="isNewTenantCtrl">New Tenant</label>
+          <div class="form-control form-control-borderless">
+            <p-inputSwitch
+              id="isNewTenantCtrl"
+              formControlName="isNewTenantCtrl"
+              (onChange)="changeNewTenantSwitch()"
+            ></p-inputSwitch>
+          </div>
+        </div>
+
+        <div class="form-group col-sm">
+          <label for="backgroundCheckCtrl">Upload Background Check</label>
+          <input
+            id="backgroundCheckCtrl"
+            type="file"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'backgroundcheck')"
+            [ngClass]="{
+              'is-invalid': submitted && f['backgroundCheckCtrl'].errors
+            }"
+            formControlName="backgroundCheckCtrl"
+          />
+          <div
+            *ngIf="submitted && f['backgroundCheckCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['backgroundCheckCtrl'].errors['invalidFileFormat']">
+              Invalid Format
+            </div>
+            <div *ngIf="f['backgroundCheckCtrl'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-sm">
+          <label for="propertyImagesSourceCtrl">Property Picture</label>
+
+          <input
+            type="file"
+            id="propertyImagesSourceCtrl"
+            name="files"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f['propertyImagesSourceCtrl'].errors
+            }"
+            multiple
+            accept="image/jpeg, image/png, image/gif"
+            (change)="onFileChange($event, 'propertyimages')"
+            formControlName="propertyImagesCtrl"
+          />
+          <div
+            *ngIf="submitted && f['propertyImagesSourceCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <!-- <div *ngIf="f['propertyImagesSourceCtrl'].errors['required']">
+              Field is required
+            </div> -->
+            <div *ngIf="f['propertyImagesSourceCtrl'].errors['maxFiles']">
+              You can only upload a maximum of {{ maxFiles }} files.
+            </div>
+            <div *ngIf="f['propertyImagesSourceCtrl'].errors['maxFileSize']">
+              The file size must be no more than {{ maxFileSize / 1000 }} KB.
+            </div>
+            <div
+              *ngIf="f['propertyImagesSourceCtrl'].errors['invalidFileType']"
+            >
+              You can only upload files of type:
+              {{ validFileTypes.join(", ") }}.
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm mt-auto pt-2">
+          <div class="d-flex justify-content-end">
+            <button
+              pButton
+              type="submit"
+              class="p-button-sm me-1"
+              label="Add"
+            ></button>
+            <button
+              pButton
+              type="button"
+              class="p-button-sm p-button-secondary"
+              label="Reset"
+              (click)="resetTenant()"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <hr />
+    <div class="card mt-3 mb-2">
+      <div class="card-header bg-card-header">Tenant</div>
+      <div class="card-body">
+        <div *ngIf="tenantUser.length; else other_content">
+          <p-table
+            [value]="tenantUser"
+            styleClass="p-datatable-gridlines"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [scrollable]="true"
+            scrollHeight="400px"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="custom_font_color">Name</th>
+                <th class="custom_font_color">Email</th>
+                <th class="custom_font_color">Occupation</th>
+                <th class="custom_font_color">Background Check</th>
+                <th class="custom_font_color">Linked to Property</th>
+                <th class="custom_font_color">Rent / Month</th>
+                <th class="custom_font_color">Due On</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-property>
+              <tr>
+                <td>{{ property.name }}</td>
+                <td>{{ property.email }}</td>
+                <td>{{ property.occupation }}</td>
+                <td>
+                  {{
+                    property.backgroundCheckFileData
+                      ? "Available"
+                      : "Not Available"
+                  }}
+                </td>
+                <td>{{ getPropertyName(property.propertyId) }}</td>
+                <td>{{ property.rentAmount | currency : "GBP" }}</td>
+                <td>{{ property.rentDueDate | date : "dd/MM/yyyy" }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <ng-template #other_content
+          ><strong>Please add Tenant</strong>
+        </ng-template>
+      </div>
+    </div>
+    <form [formGroup]="tenantForm" (ngSubmit)="submitTenant(tenantForm)">
+      <div class="row m-1 pt-1">
+        <div class="form-group col-sm">
+          <label for="tenancyAgreemenCtrl">Upload Tenancy Agreement </label>
+          <input
+            type="file"
+            accept=".pdf"
+            class="form-control"
+            id="tenancyAgreemenCtrl"
+            (change)="onFileChange($event, 'tenancyagreement')"
+            [ngClass]="{
+              'is-invalid': submittedTenant && t['tenancyAgreemenCtrl'].errors
+            }"
+            formControlName="tenancyAgreemenCtrl"
+          />
+          <div>
+            {{
+              primaryTenantDetails ? primaryTenantDetails.agreementFileName : ""
+            }}
+          </div>
+          <div
+            *ngIf="submittedTenant && t['tenancyAgreemenCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="t['tenancyAgreemenCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="t['tenancyAgreemenCtrl'].errors['invalidFileFormat']">
+              Invalid Format
+            </div>
+            <div *ngIf="t['tenancyAgreemenCtrl'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm">
+          <label for="rentGuideCtrl">Upload How to Rent Guide </label>
+          <input
+            id="rentGuideCtrl"
+            type="file"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'rentguide')"
+            [ngClass]="{
+              'is-invalid': submittedTenant && t['rentGuideCtrl'].errors
+            }"
+            formControlName="rentGuideCtrl"
+          />
+          <div>
+            {{
+              primaryTenantDetails ? primaryTenantDetails.rentGuideFileName : ""
+            }}
+          </div>
+          <div
+            *ngIf="submittedTenant && t['rentGuideCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="t['rentGuideCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="t['rentGuideCtrl'].errors['invalidFileFormat']">
+              Invalid Format
+            </div>
+            <div *ngIf="t['rentGuideCtrl'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm">
+          <label for="depositCertificateCtrl">
+            Deposit Certificate Detail</label
+          >
+          <input
+            type="text"
+            id="depositCertificateCtrl"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                submittedTenant && t['depositCertificateCtrl'].errors
+            }"
+            formControlName="depositCertificateCtrl"
+          />
+          <div
+            *ngIf="submittedTenant && t['depositCertificateCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="t['depositCertificateCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="t['depositCertificateCtrl'].errors['maxlength']">
+              Maximum length is
+              {{
+                t["depositCertificateCtrl"].errors["maxlength"].requiredLength
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-1 pt-1">
+        <div class="form-group col-sm mt-auto pt-2">
+          <div class="d-flex justify-content-end">
+            <button
+              pButton
+              type="button"
+              class="p-button-sm p-button-warning me-1"
+              (click)="submitTenant(tenantForm, true)"
+            >
+              <strong>Save & Send Onboarding Email</strong>
+            </button>
+            <!-- [disabled]="!tenantForm.valid && !tenantUser.length" -->
+            <button
+              pButton
+              type="submit"
+              class="p-button-sm mr-1"
+              label="Save"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="custom_container p-1 mt-2">
+    <div class="card mt-3 mb-2">
+      <div class="card-header bg-card-header">Tenant Users</div>
+      <div class="">
+        <div *ngIf="tenantList.length; else other_content">
+          <p-table
+            [value]="tenantList"
+            styleClass="p-datatable-gridlines p-datatable-sm"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [scrollable]="true"
+            scrollHeight="400px"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="custom_font_color">Property Name</th>
+                <th class="custom_font_color">Name</th>
+                <th class="custom_font_color">Email</th>
+                <th class="custom_font_color">Occupation</th>
+                <th class="custom_font_color">Background Check</th>
+
+                <th class="custom_font_color">Rent / Month</th>
+                <th class="custom_font_color">First Due On</th>
+                <th class="custom_font_color">Tenancy StartDate</th>
+                <th class="custom_font_color">Tenant Status</th>
+                <th class="custom_font_color">ROC</th>
+                <th class="custom_font_color">Send Onboarding Email</th>
+                <th class="custom_font_color">Edit</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-property>
+              <tr>
+                <td>{{ property?.property?.name }}</td>
+                <td>{{ property.user.firstName }}</td>
+                <td>{{ property.user.email }}</td>
+                <td>{{ property.occupation }}</td>
+                <td>
+                  {{
+                    property.backgroundCheckFileData
+                      ? "Available"
+                      : "Not Available"
+                  }}
+                </td>
+
+                <td>
+                  {{
+                    property.isPrimary
+                      ? (property.rentAmout | currency : "GBP")
+                      : ""
+                  }}
+                </td>
+                <td>{{ property.rentDueDate | date : "dd/MM/yyyy" }}</td>
+                <td>{{ property.tenancyStartDate | date : "dd/MM/yyyy" }}</td>
+                <td>{{ property.isNewTenant?'New Tenant':'Existing Tenant' }}</td>
+
+                <td>
+                  <button
+                    pButton
+                    type="button"
+                    class="p-button-sm p-button-warning"
+                    [label]="'ROC'"
+                    (click)="getRoc(property)"
+                    [disabled]="!property.isRocConfirmed"
+                  ></button>
+                </td>
+                <td>
+                  <button
+                    pButton
+                    type="button"
+                    class="p-button-sm p-button-warning"
+                    [label]="'Onboard'"
+                    (click)="sendConfirmEmail(property)"
+                  ></button>
+                </td>
+                <td>
+                  <a
+                    pButton
+                    pRipple
+                    type="button"
+                    [tooltipPosition]="'left'"
+                    [appendTo]="'body'"
+                    [fitContent]="true"
+                    pTooltip="Edit"
+                    class="p-button-rounded"
+                    (click)="editTenantEmail(property)"
+                  >
+                    <i class="fa fa-edit"></i>
+                  </a>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <ng-template #other_content
+          ><strong>Please add Tenant</strong>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog> -->
+
+<p-dialog
+  header="Edit"
+  [(visible)]="displayMaximizableEmailEdit"
+  [modal]="true"
+  [style]="{ width: '40vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <div class="container-fluid">
+    <form
+      [formGroup]="tenantEmailForm"
+      (ngSubmit)="tenantEmailSubmit(tenantEmailForm)"
+    >
+      <div class="row">
+        <label for="amount">Email</label>
+        <div class="col-md-8">
+          <div class="form-group">
+            <input
+              type="text"
+              placeholder="Email"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submittedEmailTenant && te['emailCtrl'].errors
+              }"
+              formControlName="emailCtrl"
+            />
+            <div
+              *ngIf="submittedEmailTenant && te['emailCtrl'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="te['emailCtrl'].errors['required']">
+                Field is required
+              </div>
+              <div *ngIf="te['emailCtrl'].errors['email']">
+                Invalid email address
+              </div>
+              <div *ngIf="te['emailCtrl'].errors['maxlength']">
+                Maximum length is
+                {{ te["emailCtrl"].errors["maxlength"].requiredLength }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="padding-mobile">
+            <button
+              pButton
+              type="submit"
+              class="p-button-sm"
+              label="submit"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template pTemplate="content">
+    <div class="center-block" *ngIf="isShowenantEmailLoader">
+      <p-progressSpinner
+        [style]="{ width: '50px', height: '50px' }"
+        fill="var(--surface-ground)"
+        animationDuration=".5s"
+      ></p-progressSpinner>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button
+      (click)="displayMaximizableEmailEdit = false; tenantIdForEmailEdit = null"
+      label="Close"
+    ></p-button>
+  </ng-template>
+</p-dialog>

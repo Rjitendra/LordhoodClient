@@ -1,0 +1,311 @@
+<div class="container-fluid custom_container">
+  <div class="p-1">
+    <form>
+      <div class="card mt-2 mb-2 pt-0">
+        <div class="card-header bg-card-header">Ongoing Tenancy</div>
+        <div class="card-body">
+          <div
+            class="row mt-2 pt-2"
+            style="border: 1px solid #40ad6c"
+            *ngFor="let item of ongoingTenancyList; let i = index"
+          >
+            <div
+              class="table-responsive col-md-8 d-flex justify-content-end mb-2"
+            ></div>
+            <div class="table-responsive col-md-8">
+              <table class="table small">
+                <thead>
+                  <tr>
+                    <th>Tenant Name</th>
+                    <th>Rent Detail</th>
+                    <th>Property Pictures (Landlord)</th>
+                    <th>Property Pictures (Tenant)</th>
+                    <th>Issues Tracker</th>
+                    <th>Update Agreement</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ item.name }}</td>
+                    <td>
+                      <a href="javascript:void(0)" (click)="viewRent(item)"
+                        >View/Manage</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        href="javascript:void(0)"
+                        (click)="getPropertyImages(item)"
+                        >View</a
+                      >
+                    </td>
+                    <td>
+                      <div>
+                        <a
+                          href="javascript:void(0)"
+                          (click)="getPropertyImagesForTenant(item)"
+                          >View</a
+                        >
+                      </div>
+                    </td>
+                    <td>
+                      <a href="javascript:void(0)" (click)="issueTracker(item)"
+                        >View/Manage</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        href="javascript:void(0)"
+                        (click)="updateAgreement(item)"
+                        >Update</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-responsive col-md-8">
+              <table class="table small">
+                <thead>
+                  <tr>
+                    <th>Property Name</th>
+                    <th>Address</th>
+                    <th>Tenancy Agreement</th>
+
+                    <th>How to rent</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ item.propertyName }}</td>
+                    <td>{{ item.address }}</td>
+                    <td>
+                      <a
+                        href="javascript:void(0)"
+                        (click)="
+                          downloadFile(
+                            downloadType.TenancyAgreement,
+                            item.agreementFileName!,
+                            item.tenantId
+                          )
+                        "
+                        >Download</a
+                      >
+                    </td>
+
+                    <td>
+                      <a
+                        href="javascript:void(0)"
+                        (click)="
+                          downloadFile(
+                            downloadType.RentGuide,
+                           item.rentGuideFileName!,
+                           item.tenantId
+                          )
+                        "
+                        >Download</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p-dialog
+  header="Upload"
+  [(visible)]="displayMaximizable"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <p-fileUpload
+    name="demo[]"
+    [multiple]="true"
+    accept="image/*"
+    [maxFileSize]="1000000"
+    [customUpload]="true"
+    [showCancelButton]="true"
+    [cancelLabel]="'Clear'"
+    [showUploadButton]="false"
+    name="myfile[]"
+    [files]="myfiles"
+    (onSelect)="onSelect($event)"
+    (onImageError)="onImageError($event)"
+    (onRemove)="onRemove($event)"
+  >
+    <ng-template pTemplate="content">
+      <div class="center-block" *ngIf="isShowUploadLoader">
+        <p-progressSpinner
+          [style]="{ width: '50px', height: '50px' }"
+          fill="var(--surface-ground)"
+          animationDuration=".5s"
+        ></p-progressSpinner>
+      </div>
+    </ng-template>
+  </p-fileUpload>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      *ngIf="uploadedFiles.length > 0"
+      (click)="imageUpload()"
+      label="Upload"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  header="View"
+  [(visible)]="displayMaximizable1"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <div class="row pb-3" *ngFor="let item of propertyPicture; let i = index">
+    <div style="border: 1px solid #40ad6c; margin: 2px; padding: 1px">
+      <img [src]="item.imageUrl" height="100%" width="100%" />
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button (click)="displayMaximizable1 = false" label="Close"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  header="View"
+  [(visible)]="displayMaximizable2"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <div
+    class="row pb-3"
+    *ngFor="let item of propertyPictureByTenant; let i = index"
+  >
+    <div style="border: 1px solid #40ad6c; margin: 2px; padding: 1px">
+      <img [src]="item.imageUrl" height="100%" width="100%" />
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button (click)="displayMaximizable2 = false" label="Close"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  header="Update Agreemnt"
+  [(visible)]="displayMaximizable3"
+  [modal]="true"
+  [style]="{ width: '60vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <div class="container-fluid custom_container pt-2 pb-4">
+    <form
+      [formGroup]="updateAgreemntForm"
+      (ngSubmit)="updateAgreemnt(updateAgreemntForm)"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <label for="tenancyAgreemenCtrl" class="form-label"
+            >Upload Tenancy Agreement</label
+          >
+          <input
+            type="file"
+            accept=".pdf"
+            class="form-control"
+            (change)="onFileChange($event, 'tenancyAgreement')"
+            [ngClass]="{
+              'is-invalid':
+                isSubmittedTenancyAgreement && f['tenancyAgreemenCtrl'].errors
+            }"
+            formControlName="tenancyAgreemenCtrl"
+          />
+          <div
+            *ngIf="
+              isSubmittedTenancyAgreement && f['tenancyAgreemenCtrl'].errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['tenancyAgreemenCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['tenancyAgreemenCtrl'].errors['invalidFileFormat']">
+              Only PDF files are allowed
+            </div>
+            <div *ngIf="f['tenancyAgreemenCtrl'].errors['maxFileSizeExceeded']">
+              Maximum file size exceeded
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="name">Rent Amount</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                isSubmittedTenancyAgreement && f['rentAmountCtrl'].errors
+            }"
+            currencyMask
+            [options]="{
+              align: 'left',
+              precision: 0,
+              allowNegative: false,
+              prefix: '£'
+            }"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            formControlName="rentAmountCtrl"
+          />
+
+          <div
+            *ngIf="isSubmittedTenancyAgreement && f['rentAmountCtrl'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['rentAmountCtrl'].errors['required']">
+              Field is required
+            </div>
+            <div *ngIf="f['rentAmountCtrl'].errors['maxlength']">
+              Maximum length is
+              {{ f["rentAmountCtrl"].errors["maxlength"].requiredLength }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-2">
+        <div class="d-flex justify-content-end">
+          <button
+            pButton
+            type="submit"
+            class="p-button-sm"
+            label="Submit"
+          ></button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button (click)="displayMaximizable3 = false" label="Close"></p-button>
+  </ng-template>
+</p-dialog>

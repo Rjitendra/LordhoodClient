@@ -1,0 +1,99 @@
+<div class="container custom_container custom_font_color mt-1">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Add Action</h3>
+      <hr />
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label for="actionType" class="form-label">Status</label>
+          <select class="form-select" id="actionType" formControlName="status">
+            <option value="">-- Select --</option>
+            <option value="New">New</option>
+            <option value="Pending">Pending</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Closed">Closed</option>
+          </select>
+          <div
+            *ngIf="
+              f['status'].invalid && (f['status'].dirty || f['status'].touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="f['status'].errors && f['status'].errors['required']">
+              Status is required
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="comments" class="form-label">Comments</label>
+          <textarea
+            class="form-control"
+            id="comments"
+            rows="3"
+            formControlName="comments"
+          ></textarea>
+
+          <div
+            *ngIf="
+              f['comments'].invalid &&
+              (f['comments'].dirty || f['comments'].touched)
+            "
+            class="text-danger"
+          >
+            <div
+              *ngIf="f['comments'].errors && f['comments'].errors['required']"
+            >
+              Comments is required
+            </div>
+            <div
+              *ngIf="f['comments'].errors && f['comments'].errors['maxlength']"
+            >
+              Maximum length is 500 characters
+            </div>
+          </div>
+        </div>
+        <button
+          pButton
+          type="submit"
+          class="p-button-sm"
+          [disabled]="form.invalid"
+          label="Submit"
+        ></button>
+        <button
+          pButton
+          type="button"
+          class="p-button-sm p-button-secondary"
+          (click)="back()"
+          label="Back"
+        ></button>
+      </form>
+    </div>
+    <div class="col-md-6" *ngIf="ticketHistory.length">
+      <h3>History</h3>
+      <hr />
+      <div class="card mb-1">
+        <div class="card-body">
+          <p>
+            <strong>Property Name:</strong> {{ ticket.propertyName }} <br />
+            <strong>Description:</strong> {{ ticket.description }}
+          </p>
+        </div>
+      </div>
+      <div class="chat-history" style="height: 500px; overflow-y: auto">
+        <div class="card mb-1" *ngFor="let item of ticketHistory">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Status: {{ item?.status }}</h5>
+            <p class="card-text">
+              <span class="font-weight-bold">{{ item?.name }}</span> commented
+              on
+              <span class="font-italic">{{
+                item?.createdDate | date : "dd/MM/yyyy h:mm:ss a"
+              }}</span
+              >: {{ item?.comment }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

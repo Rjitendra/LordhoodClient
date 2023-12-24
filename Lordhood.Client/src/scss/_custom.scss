@@ -1,0 +1,274 @@
+// Here you can add other styles
+.header.header-sticky {
+  z-index: 10 !important;
+}
+
+.sidebar {
+  background-color: #40ad6c;
+}
+
+.sidebar-nav a {
+  color: black;
+}
+
+.sidebar-nav a {
+  font-size: 16px;
+  color: white !important;
+}
+
+.nav-icon {
+  color: white !important;
+}
+
+.nav_header {
+  padding-left: 60%;
+}
+
+.nav_font {
+  font-family: verdana;
+  color: black;
+  font-size: 20px;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  font-weight: bold;
+}
+
+.nav_pad {
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+.p-calendar {
+  width: 100%;
+  height: 38px;
+}
+
+.p-button {
+  color: #ffffff;
+  background: #40ad6c;
+  border: 1px solid #40ad6c;
+  padding: 0.4rem 1.25rem !important;
+  font-size: 1rem;
+  transition: background-color 0.1s, color 0.1s, border-color 0.1s,
+    box-shadow 0.1s !important;
+  border-radius: 6px;
+}
+
+.p-button:enabled:hover {
+  background-color: #008000;
+  color: #ffffff;
+}
+
+.p-inputtext {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1rem;
+  color: #495057;
+  background: #ffffff;
+  padding: 0.5rem 0.5rem !important;
+  border: 1px solid #ced4da;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 6px;
+}
+
+.red-bar.p-inputtext {
+  border: 1px solid red;
+}
+
+.red-bar-class .p-inputtext {
+  border: 1px solid red;
+}
+
+td a {
+  color: blue;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-header {
+  font-size: 20px;
+}
+
+.p-dialog .p-dialog-header {
+  background-color: #40ad6c !important;
+  height: 50px;
+  color: #fff;
+}
+.p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #40ad6c !important;
+  background: #40ad6c !important;
+}
+
+.p-overlaypanel .p-overlaypanel-content {
+  padding: 0px !important;
+}
+.list-group-item.active {
+  z-index: 2;
+  color: var(--cui-list-group-active-color);
+  background-color: #40ad6c !important;
+  border-color: #40ad6c !important;
+}
+
+.bg-card-header {
+  color: #fff;
+  background-color: #40ad6c;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  font-weight: bold;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: #647de1;
+}
+
+.custom_container {
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  font-size: 15px;
+  color: black !important;
+}
+
+.progress-spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  // overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.center-block {
+  display: block;
+  margin-left: 50%;
+}
+
+/* Transparent Overlay */
+.progress-spinner:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  background-color: #40ad6c;
+}
+
+th.ui-state-default {
+  text-align: center;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  line-height: 26px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.custom_font_color {
+  font-size: 15px !important;
+  color: black !important;
+}
+.font_header {
+  font-weight: bold !important;
+  font-size: 15px !important;
+  color: black !important;
+}
+
+.file_icon {
+  font-size: 10px;
+}
+
+.green_background {
+  font-weight: bold;
+  color: #7aa865;
+}
+
+.amber_background {
+  font-weight: bold;
+  color: #ffbf00;
+}
+.red_background {
+  font-weight: bold;
+  color: #f44336;
+}
+.div-color {
+  color: black !important;
+}
+.p-dropdown {
+  width: 100% !important;
+}
+.p-inputtext {
+  width: 100%;
+  height: 38px;
+}
+
+.p-autocomplete {
+  width: 100%;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; /* set the maximum width of the cell */
+}
+.nowrap {
+  white-space: nowrap;
+}
+.normal_wrap {
+  white-space: normal !important;
+}
+.table-layout_fixed {
+  table-layout: fixed;
+}
+.pdf-viewer_outer-div {
+  width: 100%;
+  height: 320px;
+  border: 1px solid;
+  border-radius: 16px;
+}
+.pdf-viewer_height_width {
+  width: 100%;
+  height: 318px;
+}
+.confirmation-modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.disabled-link {
+  pointer-events: none;
+  color: gray;
+  text-decoration: none;
+  cursor: not-allowed;
+}

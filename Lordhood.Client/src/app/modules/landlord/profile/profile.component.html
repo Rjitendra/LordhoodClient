@@ -1,0 +1,114 @@
+<div class="container-fluid pb-3">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header bg-card-header">Profile</div>
+        <div class="card-body">
+          <div class="mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="mb-3">
+                 
+                  <p
+                    class="d-inline"
+                    *ngIf="
+                      landlordProfile.isUpdatedAccount;
+                      else connectLinkstatus
+                    "
+                  >
+                  <button
+                  pButton
+                  class="p-button-sm me-1"
+                  (click)="createAccount()"
+                  label="View My Stripe"
+                ></button>
+                  </p>
+                  <ng-template #connectLinkstatus>
+                    <button
+                      pButton
+                      class="p-button-sm me-1"
+                      (click)="createAccount()"
+                      label="Create My Stripe"
+                    ></button>
+                  </ng-template>
+                </div>
+
+                
+                <div class="mb-3">
+                  <strong class="d-inline">User Since:</strong>
+                  <p class="d-inline">
+                    {{ landlordProfile.dateCreated | date : "dd/MM/yyyy" }}
+                  </p>
+                </div>
+                <div class="mb-3">
+                  <strong class="d-inline">Valid Till:</strong>
+                  <p class="d-inline">
+                    {{ landlordProfile.dateExpiry | date : "dd/MM/yyyy" }}
+                  </p>
+                </div>
+                <button *ngIf="landlordProfile.isRenew"
+                  pButton
+                  class="p-button-sm me-1"
+                  label="Renew - £40"
+                  (click)="checkOutToAdmin()"
+                ></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h5>Landlord Information:</h5>
+            <div class="row mb-2">
+              <div class="col-md-3">
+                <strong>Email:</strong>
+              </div>
+              <div class="col-md-9">
+                {{ landlordProfile.email }}
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-3">
+                <strong>First Name:</strong>
+              </div>
+              <div class="col-md-9">
+                {{ landlordProfile.firstName }}
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-3">
+                <strong>Last Name:</strong>
+              </div>
+              <div class="col-md-9">
+                {{ landlordProfile.lastName }}
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-3">
+                <strong>Address:</strong>
+              </div>
+              <div class="col-md-9">
+                {{ landlordProfile.address }}
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-3">
+                <strong>PostCode:</strong>
+              </div>
+              <div class="col-md-9">
+                {{ landlordProfile.postcode }}
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-3">
+                <strong>Mobile Number:</strong>
+              </div>
+              <div class="col-md-9">
+                {{ landlordProfile.phoneNumber }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

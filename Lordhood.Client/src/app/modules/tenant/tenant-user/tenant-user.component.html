@@ -1,0 +1,395 @@
+<div class="">
+  <div class="container-fluid">
+    <div class="p-1">
+      <form>
+        <div class="card mt-2 mb-2 pt-0">
+          <div class="card-header bg-card-header">Tenant</div>
+          <div class="card-body">
+            <div class="row col-12">
+              <div
+                class="table-responsive pb-3"
+                *ngIf="isTenantAllAcknowledgeStaus"
+              >
+                <div
+                  class="table-responsive col-md-8 d-flex justify-content-end mb-2"
+                >
+                  <button
+                    pButton
+                    type="button"
+                    class="p-button"
+                    label="Upload Property Pictures"
+                    (click)="uploadPropertyPictureOption(ongoingTenancy)"
+                  ></button>
+                </div>
+                <div class="table-responsive col-md-8">
+                  <table class="table small">
+                    <thead>
+                      <tr>
+                        <th>Pay/View Rent</th>
+                        <th>Property Pictures (Landlord)</th>
+                        <th>Property Pictures (Tenant)</th>
+                        <th>Issues Tracker</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            (click)="viewRent(ongoingTenancy)"
+                            >Pay/View</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            (click)="getPropertyImages(ongoingTenancy)"
+                            >View</a
+                          >
+                        </td>
+                        <td>
+                          <div>
+                            <a
+                              href="javascript:void(0)"
+                              (click)="getPropertyImagesTenant()"
+                              >View</a
+                            >
+                          </div>
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            routerLink="ticket-create"
+                            >View/Manage</a
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="table-responsive col-md-8">
+                  <table class="table small">
+                    <thead>
+                      <tr>
+                        <th>Address</th>
+                        <th>Tenancy Agreement</th>
+                        <th>EICR</th>
+                        <th>EPC</th>
+                        <th>Gas Certificate</th>
+                        <th>How to rent</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ ongoingTenancy.address }}</td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            (click)="
+                              downloadFileTenant(
+                                downloadType.TenancyAgreement,
+                                ongoingTenancy.agreementFileName!,
+                                ongoingTenancy.tenantId
+                              )
+                            "
+                            >Download</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            (click)="
+                              downloadFileProperty(
+                                downloadType.EICRCertificate,
+                                ongoingTenancy.eicrFileName!,
+                                ongoingTenancy.propertyId
+                              )
+                            "
+                            >Download</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            (click)="
+                              downloadFileProperty(
+                                downloadType.EPCCertificate,
+                                ongoingTenancy.energyPerformanceFileName!,
+                                ongoingTenancy.propertyId
+                              )
+                            "
+                            >Download</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            [class.disabled-link]="
+                              !ongoingTenancy.gasSafetyFileName
+                            "
+                            href="javascript:void(0)"
+                            (click)="
+                            downloadFileProperty(
+                              downloadType.GasSafetyCertificate,
+                               ongoingTenancy.gasSafetyFileName!,
+                               ongoingTenancy.propertyId
+                              )
+                            "
+                            >Download</a
+                          >
+                        </td>
+                        <td>
+                          <a
+                            href="javascript:void(0)"
+                            (click)="
+                              downloadFileTenant(
+                                downloadType.RentGuide,
+                                ongoingTenancy.rentGuideFileName!,
+                                ongoingTenancy.tenantId
+                              )
+                            "
+                            >Download</a
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div *ngIf="isTenantAllAcknowledgeStaus == false">
+                <div class="text-danger">
+                  <p>Please Acknowledged other user to start Tenancy</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- for Term and condtion -->
+
+<p-dialog
+  header="Terms and Conditions"
+  [(visible)]="displayMaximizable2"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="false"
+  [closeOnEscape]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <div class="row">
+    <label for="accept-terms"
+      >By Clicking Approve Button ,I accept the terms and conditions</label
+    >
+  </div>
+  <form>
+    <div class="form-group row">
+      <label for="staticEmail" class="col-sm-8 col-form-label"
+        >Tenancy Agreement</label
+      >
+      <div class="col-sm-4">
+        <a
+          href="javascript:void(0)"
+          (click)="
+          downloadFileTenant(
+              downloadType.TenancyAgreement,
+              ongoingTenancy.agreementFileName!,
+              ongoingTenancy.tenantId
+            )
+          "
+          >Download</a
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-8 col-form-label">EICR</label>
+      <div class="col-sm-4">
+        <a
+          href="javascript:void(0)"
+          (click)="
+          downloadFileProperty(
+            downloadType.EICRCertificate,
+            ongoingTenancy.eicrFileName!,
+            ongoingTenancy.propertyId
+          )
+          "
+          >Download</a
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-8 col-form-label">EPC</label>
+      <div class="col-sm-4">
+        <a
+          href="javascript:void(0)"
+          (click)="
+          downloadFileProperty(
+            downloadType.EPCCertificate,
+            ongoingTenancy.energyPerformanceFileName!,
+            ongoingTenancy.propertyId
+          )
+          "
+          >Download</a
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-8 col-form-label"
+        >Gas Certificate</label
+      >
+      <div class="col-sm-4">
+        <a
+          [class.disabled-link]="
+            ongoingTenancy && !ongoingTenancy.gasSafetyFileName
+          "
+          href="javascript:void(0)"
+          (click)="
+          downloadFileProperty(
+            downloadType.GasSafetyCertificate,
+             ongoingTenancy.gasSafetyFileName!,
+             ongoingTenancy.propertyId
+            )
+          "
+          >Download</a
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-8 col-form-label"
+        >How to rent</label
+      >
+      <div class="col-sm-4">
+        <a
+          href="javascript:void(0)"
+          (click)="
+          downloadFileTenant(
+            downloadType.RentGuide,
+            ongoingTenancy.rentGuideFileName!,
+            ongoingTenancy.tenantId
+          )
+          "
+          >Download</a
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <p-checkbox
+          name="accept-terms"
+          [(ngModel)]="acceptTerms"
+          [binary]="true"
+          inputId="binary"
+          label="I accept the terms and conditions"
+        ></p-checkbox>
+      </div>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button
+      (click)="approve()"
+      label="Approve"
+      [disabled]="!acceptTerms"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- Upload property picture for tenant by Tenant -->
+
+<p-dialog
+  header="Upload"
+  [(visible)]="displayMaximizable"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <p-fileUpload
+    name="demo[]"
+    [multiple]="true"
+    accept="image/*"
+    [maxFileSize]="2000000"
+    [customUpload]="true"
+    [showCancelButton]="true"
+    [cancelLabel]="'Clear'"
+    [showUploadButton]="false"
+    name="myfile[]"
+    [files]="myfiles"
+    (onSelect)="onSelect($event)"
+    (onImageError)="onImageError($event)"
+    (onRemove)="onRemove($event)"
+  >
+    <ng-template pTemplate="content">
+      <div class="center-block" *ngIf="isShowUploadLoader">
+        <p-progressSpinner
+          [style]="{ width: '50px', height: '50px' }"
+          fill="var(--surface-ground)"
+          animationDuration=".5s"
+        ></p-progressSpinner>
+      </div>
+    </ng-template>
+  </p-fileUpload>
+
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button
+      *ngIf="uploadedFiles.length > 0"
+      (click)="imageUpload()"
+      label="Upload"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- property picture View for Tenant added by Landlord -->
+<p-dialog
+  header="View"
+  [(visible)]="displayMaximizable3"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <div class="row pb-3" *ngFor="let item of propertyPicture; let i = index">
+    <div style="border: 1px solid #40ad6c; margin: 1px">
+      <img [src]="item.imageUrl" height="100%" width="100%" />
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button (click)="displayMaximizable3 = false" label="Close"></p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- property picture View for Tenant added by tenant-->
+<p-dialog
+  header="View"
+  [(visible)]="displayMaximizable1"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+>
+  <div
+    class="row pb-3"
+    *ngFor="let item of propertyPictureByTenant; let i = index"
+  >
+    <div style="border: 1px solid #40ad6c; margin: 1px">
+      <img [src]="item.imageUrl" height="100%" width="100%" />
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer" class="pt-3">
+    <p-button (click)="displayMaximizable1 = false" label="Close"></p-button>
+  </ng-template>
+</p-dialog>

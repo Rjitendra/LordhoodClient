@@ -1,0 +1,112 @@
+<div class="container custom_container full-screen custom_font_color">
+  <div class="card mt-2 mb-2 pt-0">
+    <div class="card-header bg-card-header">Create a Ticket</div>
+    <div class="card-body">
+      <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select formControlName="category" class="form-select" id="category">
+            <option value="">Choose Category</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="Woodwork">Woodwork</option>
+            <option value="Exterior">Exterior</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Others">Others</option>
+          </select>
+          <div
+            *ngIf="f['category'].invalid && f['category'].touched"
+            class="text-danger"
+          >
+            Please select a category.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            formControlName="description"
+            class="form-control"
+            id="description"
+            rows="3"
+            placeholder="Enter description"
+          ></textarea>
+          <div *ngIf=" f['description'].errors && f['description'].errors['maxlength']" class="text-danger">
+            Maximum length exceeded ({{ f['description'].value.length }}/{{ f['description'].errors['maxlength'].requiredLength}})
+          </div>
+          <div
+            *ngIf="f['description'].invalid && f['description'].touched  && f['description'].errors &&  f['description'].errors['required']"
+            class="text-danger"
+          >
+            Please enter a description.
+          </div>
+        </div>
+        <button
+          type="submit"
+          [disabled]="ticketForm.invalid"
+          class="btn btn-success"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end mt-1">
+    <button
+      pButton
+      type="button"
+      class="p-button-sm p-button-secondary"
+      label="Back"
+      routerLink="/"
+    ></button>
+  </div>
+  <div class="card mt-2 mb-2 pt-0">
+    <div class="card-header bg-card-header">Tickets</div>
+    <div class="ml-3">
+      <div class="clearfix"></div>
+      <p-table
+        [value]="ticketList"
+        styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [scrollable]="true"
+        scrollHeight="400px"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="custom_font_color">Ticket Number</th>
+            <th class="custom_font_color">Name</th>
+            <th class="custom_font_color">Property Name</th>
+            <th class="custom_font_color">Category</th>
+            <th class="custom_font_color">Description</th>
+            <th class="custom_font_color">Status</th>
+            <th class="custom_font_color">Comment</th>
+            <th class="custom_font_color">Created On</th>
+            <th class="custom_font_color">Updated On</th>
+            <th class="custom_font_color">Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ticket let-i="rowIndex">
+          <tr>
+            <td class="custom_font_color">{{ ticket.id }}</td>
+            <td class="custom_font_color">{{ ticket.tenantName }}</td>
+            <td class="custom_font_color">{{ ticket.propertyName }}</td>
+            <td class="custom_font_color">{{ ticket.category }}</td>
+            <td class="custom_font_color">{{ ticket.description }}</td>
+            <td class="custom_font_color">{{ ticket.status[0]?.status }}</td>
+            <td class="custom_font_color">{{ ticket.status[0]?.comment }}</td>
+            <td class="custom_font_color">
+              {{ ticket.status[0]?.dateCreated | date : "dd/MM/yyyy" }}
+            </td>
+            <td class="custom_font_color">
+              {{ ticket.status[0]?.dateModified | date : "dd/MM/yyyy" }}
+            </td>
+            <td>
+              <a href="javascript:void(0)" (click)="ticketHistory(ticket)"
+                >Edit</a
+              >
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
