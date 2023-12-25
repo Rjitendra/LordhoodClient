@@ -5,7 +5,12 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/app/shared/*"],
-      "@core/*": ["src/app/core/*"]
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "my-ui": [
+        "./dist/my-ui"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
