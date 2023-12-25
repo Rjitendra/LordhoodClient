@@ -11,8 +11,8 @@ describe('RentReportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RentReportComponent ]
-    })
+    imports: [RentReportComponent]
+})
     .compileComponents();
   }));
 

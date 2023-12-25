@@ -1,21 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
 import { IOngoingTenancy } from '@app/model/tenant';
 import { ITicket, ITicketHistory, ITicketStatus } from '@app/model/ticket';
 import { IUserDetail, OauthService } from '@app/oauth/service/oauth.service';
 import { TicketService } from '@app/service/ticket.service';
+import { DatePipe } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-ticket-history',
-  templateUrl: './ticket-history.component.html',
-  styleUrls: ['./ticket-history.component.css'],
+    selector: 'app-ticket-history',
+    templateUrl: './ticket-history.component.html',
+    styleUrls: ['./ticket-history.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        RouterLink,
+        DatePipe,
+    ],
 })
 export class TicketHistoryComponent implements OnInit {
   form!: FormGroup;

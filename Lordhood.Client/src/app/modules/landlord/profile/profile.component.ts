@@ -4,11 +4,15 @@ import { IAccountLinkResponse, IPaymentRequest } from '@app/model/payment';
 import { IUserDetail, OauthService } from '@app/oauth/service/oauth.service';
 import { PaymentService } from '@app/service/payment.service';
 import { ProfileService } from '@app/service/profile.service';
+import { DatePipe } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.css'],
+    standalone: true,
+    imports: [ButtonModule, DatePipe],
 })
 export class ProfileComponent implements OnInit {
   userdetail: Partial<IUserDetail> = {};

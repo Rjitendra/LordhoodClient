@@ -11,8 +11,8 @@ describe('TenantOutletComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TenantOutletComponent ]
-    })
+    imports: [TenantOutletComponent]
+})
     .compileComponents();
   }));
 

@@ -11,8 +11,8 @@ describe('ToasterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToasterComponent ]
-    })
+    imports: [ToasterComponent]
+})
     .compileComponents();
   }));
 

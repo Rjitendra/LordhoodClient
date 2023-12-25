@@ -13,11 +13,29 @@ import { PaymentService } from '@app/service/payment.service';
 import { PropertyService } from '@app/service/property.service';
 
 import { ToasterService } from '@coreui/angular';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { SharedModule } from 'primeng/api';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
-  selector: 'app-rent-report',
-  templateUrl: './rent-report.component.html',
-  styleUrls: ['./rent-report.component.css'],
+    selector: 'app-rent-report',
+    templateUrl: './rent-report.component.html',
+    styleUrls: ['./rent-report.component.css'],
+    standalone: true,
+    imports: [
+        RadioButtonModule,
+        FormsModule,
+        DropdownModule,
+        ButtonModule,
+        TableModule,
+        SharedModule,
+        CurrencyPipe,
+        DatePipe,
+    ],
 })
 export class RentReportComponent implements OnInit {
   userdetail: Partial<IUserDetail> = {};

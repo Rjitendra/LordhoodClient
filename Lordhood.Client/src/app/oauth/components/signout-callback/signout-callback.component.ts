@@ -4,8 +4,9 @@ import { OauthService } from '../../service/oauth.service';
 
 
 @Component({
-  selector: 'app-signout-callback',
-  template: `<div></div>`
+    selector: 'app-signout-callback',
+    template: `<div></div>`,
+    standalone: true
 })
 export class SignoutCallbackComponent implements OnInit {
 

@@ -11,8 +11,8 @@ describe('TenantUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TenantUserComponent ]
-    })
+    imports: [TenantUserComponent]
+})
     .compileComponents();
   }));
 

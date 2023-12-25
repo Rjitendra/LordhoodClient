@@ -11,8 +11,8 @@ describe('IssueReportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IssueReportComponent ]
-    })
+    imports: [IssueReportComponent]
+})
     .compileComponents();
   }));
 

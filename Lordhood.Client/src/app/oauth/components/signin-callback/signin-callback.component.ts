@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { OauthService } from '../../service/oauth.service';
 
 @Component({
-  selector: 'app-signin-callback',
-  template: `<div></div>`,
+    selector: 'app-signin-callback',
+    template: `<div></div>`,
+    standalone: true,
 })
 export class SigninCallbackComponent implements OnInit {
   constructor(private authService: OauthService) {}

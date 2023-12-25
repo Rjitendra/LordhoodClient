@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
 import { DownloadType } from '@app/model/property';
 import {
@@ -11,11 +11,29 @@ import {
 import { IUserDetail, OauthService } from '@app/oauth/service/oauth.service';
 import { PropertyService } from '@app/service/property.service';
 import { TenantService } from '@app/service/tenant.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { FileUploadModule } from 'primeng/fileupload';
+import { SharedModule } from 'primeng/api';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-tenant-user',
-  templateUrl: './tenant-user.component.html',
-  styleUrls: ['./tenant-user.component.css'],
+    selector: 'app-tenant-user',
+    templateUrl: './tenant-user.component.html',
+    styleUrls: ['./tenant-user.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ButtonModule,
+        RouterLink,
+        DialogModule,
+        CheckboxModule,
+        SharedModule,
+        FileUploadModule,
+        ProgressSpinnerModule,
+    ],
 })
 export class TenantUserComponent implements OnInit {
   tenantResponse!: ITenantResponse;

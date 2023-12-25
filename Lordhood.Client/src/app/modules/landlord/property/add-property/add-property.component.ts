@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, SharedModule } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
@@ -26,11 +21,41 @@ import { TenantService } from '@app/service/tenant.service';
 import { fileValidator, requiredWithTrim } from '@app/model/validators';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
 import { LoaderService } from '@app/core/primeng/services/loader.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { NgClass, NgIf, NgSwitch, NgSwitchCase, NgFor, NgSwitchDefault, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-add-property',
-  templateUrl: './add-property.component.html',
-  styleUrls: ['./add-property.component.css'],
+    selector: 'app-add-property',
+    templateUrl: './add-property.component.html',
+    styleUrls: ['./add-property.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgClass,
+        NgIf,
+        AutoCompleteModule,
+        CalendarModule,
+        ButtonModule,
+        TableModule,
+        SharedModule,
+        TooltipModule,
+        OverlayPanelModule,
+        NgSwitch,
+        NgSwitchCase,
+        NgFor,
+        NgSwitchDefault,
+        DialogModule,
+        ProgressSpinnerModule,
+        DatePipe,
+    ],
 })
 export class AddPropertyComponent implements OnInit {
   propertyForm!: FormGroup;

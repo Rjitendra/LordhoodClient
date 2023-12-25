@@ -11,8 +11,8 @@ describe('SuccessComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SuccessComponent ]
-    })
+    imports: [SuccessComponent]
+})
     .compileComponents();
   }));
 

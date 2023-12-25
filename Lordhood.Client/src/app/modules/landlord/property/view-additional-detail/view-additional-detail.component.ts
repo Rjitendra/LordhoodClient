@@ -9,11 +9,20 @@ import {
 } from '../../../../oauth/service/oauth.service';
 import { DownloadType, IProperty } from '@app/model/property';
 import { PropertyService } from '@app/service/property.service';
+import { TooltipModule } from 'primeng/tooltip';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-view-additional-detail',
-  templateUrl: './view-additional-detail.component.html',
-  styleUrls: ['./view-additional-detail.component.css'],
+    selector: 'app-view-additional-detail',
+    templateUrl: './view-additional-detail.component.html',
+    styleUrls: ['./view-additional-detail.component.css'],
+    standalone: true,
+    imports: [
+        ButtonModule,
+        PdfViewerModule,
+        TooltipModule,
+    ],
 })
 export class ViewAdditionalDetailComponent implements OnInit {
   @ViewChild('pdfViewer') pdfViewer!: ElementRef;

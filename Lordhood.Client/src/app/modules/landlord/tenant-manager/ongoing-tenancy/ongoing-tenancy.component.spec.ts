@@ -11,8 +11,8 @@ describe('OngoingTenancyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OngoingTenancyComponent ]
-    })
+    imports: [OngoingTenancyComponent]
+})
     .compileComponents();
   }));
 

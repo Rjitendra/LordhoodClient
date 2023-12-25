@@ -11,8 +11,8 @@ describe('InspectionHistoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InspectionHistoryComponent ]
-    })
+    imports: [InspectionHistoryComponent]
+})
     .compileComponents();
   }));
 

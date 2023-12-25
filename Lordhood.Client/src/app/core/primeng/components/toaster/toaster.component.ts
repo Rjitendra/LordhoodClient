@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { IToaster,ToasterService } from '../../services/toaster.service';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
-  selector: 'app-toaster',
-  templateUrl: './toaster.component.html',
-  styleUrls: ['./toaster.component.css'],
+    selector: 'app-toaster',
+    templateUrl: './toaster.component.html',
+    styleUrls: ['./toaster.component.css'],
+    standalone: true,
+    imports: [ToastModule],
 })
 export class ToasterComponent implements OnInit {
   constructor(

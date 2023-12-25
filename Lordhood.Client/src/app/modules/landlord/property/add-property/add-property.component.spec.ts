@@ -11,8 +11,8 @@ describe('AddPropertyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddPropertyComponent ]
-    })
+    imports: [AddPropertyComponent]
+})
     .compileComponents();
   }));
 

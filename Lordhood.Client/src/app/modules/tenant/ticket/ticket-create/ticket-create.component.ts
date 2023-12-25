@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { AbstractControl, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { LoaderService } from '@app/core/primeng/services/loader.service';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
 import { IOngoingTenancy } from '@app/model/tenant';
@@ -14,11 +9,25 @@ import { requiredWithTrim } from '@app/model/validators';
 import { IUserDetail, OauthService } from '@app/oauth/service/oauth.service';
 import { TenantService } from '@app/service/tenant.service';
 import { TicketService } from '@app/service/ticket.service';
+import { DatePipe } from '@angular/common';
+import { SharedModule } from 'primeng/api';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-ticket-create',
-  templateUrl: './ticket-create.component.html',
-  styleUrls: ['./ticket-create.component.css'],
+    selector: 'app-ticket-create',
+    templateUrl: './ticket-create.component.html',
+    styleUrls: ['./ticket-create.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        RouterLink,
+        TableModule,
+        SharedModule,
+        DatePipe,
+    ],
 })
 export class TicketCreateComponent implements OnInit {
   userdetail: Partial<IUserDetail> = {};

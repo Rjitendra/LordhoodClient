@@ -10,19 +10,17 @@ import { SignoutCallbackComponent } from './oauth/components/signout-callback/si
 import { httpInterceptorProviders } from './core/interceptor/interceptors';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    SigninCallbackComponent,
-    SignoutCallbackComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-  ],
-  providers: [httpInterceptorProviders],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        LayoutComponent,
+        SigninCallbackComponent,
+        SignoutCallbackComponent,
+    ],
+    providers: [httpInterceptorProviders],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

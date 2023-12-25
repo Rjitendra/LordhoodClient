@@ -11,9 +11,10 @@ import { OauthService } from 'src/app/oauth/service/oauth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css'],
+    selector: 'app-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.css'],
+    standalone: true,
 })
 export class LayoutComponent implements OnInit {
   @ViewChild('navbarToggler') navbarToggler!: ElementRef;

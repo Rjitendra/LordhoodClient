@@ -11,8 +11,8 @@ describe('SignoutCallbackComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignoutCallbackComponent ]
-    })
+    imports: [SignoutCallbackComponent]
+})
     .compileComponents();
   }));
 

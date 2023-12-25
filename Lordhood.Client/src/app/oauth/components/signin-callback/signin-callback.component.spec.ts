@@ -11,8 +11,8 @@ describe('SigninCallbackComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SigninCallbackComponent ]
-    })
+    imports: [SigninCallbackComponent]
+})
     .compileComponents();
   }));
 

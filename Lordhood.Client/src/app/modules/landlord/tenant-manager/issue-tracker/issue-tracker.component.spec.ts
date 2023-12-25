@@ -11,8 +11,8 @@ describe('IssueTrackerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IssueTrackerComponent ]
-    })
+    imports: [IssueTrackerComponent]
+})
     .compileComponents();
   }));
 

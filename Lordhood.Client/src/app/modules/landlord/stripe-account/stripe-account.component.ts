@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
 import { IAccountLinkResponse } from '@app/model/payment';
 import { OauthService } from '@app/oauth/service/oauth.service';
 import { PaymentService } from '@app/service/payment.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-stripe-account',
-  templateUrl: './stripe-account.component.html',
-  styleUrls: ['./stripe-account.component.css'],
+    selector: 'app-stripe-account',
+    templateUrl: './stripe-account.component.html',
+    styleUrls: ['./stripe-account.component.css'],
+    standalone: true,
+    imports: [FormsModule, ButtonModule],
 })
 export class StripeAccountComponent implements OnInit {
   // Account ID input field for linking an existing account

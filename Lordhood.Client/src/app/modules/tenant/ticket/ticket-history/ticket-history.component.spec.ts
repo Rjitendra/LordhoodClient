@@ -11,8 +11,8 @@ describe('TicketHistoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TicketHistoryComponent ]
-    })
+    imports: [TicketHistoryComponent]
+})
     .compileComponents();
   }));
 

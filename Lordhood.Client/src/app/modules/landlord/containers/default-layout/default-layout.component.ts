@@ -7,11 +7,35 @@ import { iconSubset } from '../../icons/icon-subset';
 import { LoaderService } from '@app/core/primeng/services/loader.service';
 import { ConfirmationService } from 'primeng/api';
 import { ModalService } from '../../modal.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToasterComponent } from '../../../../core/primeng/components/toaster/toaster.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DefaultFooterComponent } from './default-footer/default-footer.component';
+import { DefaultHeaderComponent } from './default-header/default-header.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { SidebarComponent, SidebarBrandComponent, SidebarNavComponent, SidebarTogglerComponent, SidebarToggleDirective, ContainerComponent } from '@coreui/angular';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './default-layout.component.html',
+    selector: 'app-dashboard',
+    templateUrl: './default-layout.component.html',
+    standalone: true,
+    imports: [
+        SidebarComponent,
+        SidebarBrandComponent,
+        RouterLink,
+        NgScrollbarModule,
+        SidebarNavComponent,
+        SidebarTogglerComponent,
+        SidebarToggleDirective,
+        DefaultHeaderComponent,
+        ContainerComponent,
+        RouterOutlet,
+        DefaultFooterComponent,
+        ProgressSpinnerModule,
+        ToasterComponent,
+        ConfirmDialogModule,
+    ],
 })
 export class DefaultLayoutComponent implements OnInit {
   loading!: boolean;

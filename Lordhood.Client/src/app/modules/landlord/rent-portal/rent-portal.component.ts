@@ -2,24 +2,34 @@ import {
   Component,
 OnInit
 } from '@angular/core';
-import {
-  FormBuilder,
- FormGroup,
-
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 
 import { ActivatedRoute } from '@angular/router';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
 import { IPaymentDetails } from '@app/model/payment';
 import { IUserDetail, OauthService } from '@app/oauth/service/oauth.service';
 import { PaymentService } from '@app/service/payment.service';
+import { DatePipe } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { SharedModule } from 'primeng/api';
+import { TableModule } from 'primeng/table';
 
 
 
 @Component({
-  selector: 'app-rent-portal',
-  templateUrl: './rent-portal.component.html',
-  styleUrls: ['./rent-portal.component.css'],
+    selector: 'app-rent-portal',
+    templateUrl: './rent-portal.component.html',
+    styleUrls: ['./rent-portal.component.css'],
+    standalone: true,
+    imports: [
+        TableModule,
+        SharedModule,
+        FormsModule,
+        CurrencyMaskModule,
+        ButtonModule,
+        DatePipe,
+    ],
 })
 export class RentPortalComponent implements OnInit {
   paymentDetails: IPaymentDetails[] = [];

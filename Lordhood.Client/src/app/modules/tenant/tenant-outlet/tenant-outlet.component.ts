@@ -1,13 +1,27 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoaderService } from '@app/core/primeng/services/loader.service';
 import { OauthService } from '@app/oauth/service/oauth.service';
+import { ToasterComponent } from '../../../core/primeng/components/toaster/toaster.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, NgbDropdownItem } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-tenant-outlet',
-  templateUrl: './tenant-outlet.component.html',
-  styleUrls: ['./tenant-outlet.component.css'],
+    selector: 'app-tenant-outlet',
+    templateUrl: './tenant-outlet.component.html',
+    styleUrls: ['./tenant-outlet.component.css'],
+    standalone: true,
+    imports: [
+        RouterLink,
+        NgbDropdown,
+        NgbDropdownToggle,
+        NgbDropdownMenu,
+        NgbDropdownItem,
+        RouterOutlet,
+        ProgressSpinnerModule,
+        ToasterComponent,
+    ],
 })
 export class TenantOutletComponent implements OnInit {
   @ViewChild('navbarToggler') navbarToggler!: ElementRef;

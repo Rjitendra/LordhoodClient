@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
@@ -9,11 +9,22 @@ import {
 import { IProperty, IWhiteGoods } from '@app/model/property';
 import { PropertyService } from '@app/service/property.service';
 import { fileValidator } from '@app/model/validators';
+import { ButtonModule } from 'primeng/button';
+import { NgClass } from '@angular/common';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
-  selector: 'app-add-additional-detail',
-  templateUrl: './add-additional-detail.component.html',
-  styleUrls: ['./add-additional-detail.component.css'],
+    selector: 'app-add-additional-detail',
+    templateUrl: './add-additional-detail.component.html',
+    styleUrls: ['./add-additional-detail.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CalendarModule,
+        NgClass,
+        ButtonModule,
+    ],
 })
 export class AddAdditionalDetailComponent implements OnInit {
   form!: FormGroup;

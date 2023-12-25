@@ -11,8 +11,8 @@ describe('CancelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CancelComponent ]
-    })
+    imports: [CancelComponent]
+})
     .compileComponents();
   }));
 

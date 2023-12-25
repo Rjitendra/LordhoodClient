@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PaymentService } from '@app/service/payment.service';
 
 @Component({
-  selector: 'app-return',
-  templateUrl: './return.component.html',
-  styleUrls: ['./return.component.css'],
+    selector: 'app-return',
+    templateUrl: './return.component.html',
+    styleUrls: ['./return.component.css'],
+    standalone: true,
+    imports: [RouterLink],
 })
 export class ReturnComponent implements OnInit {
   isSuccess = false;

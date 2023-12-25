@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-success',
-  templateUrl: './success.component.html',
-  styleUrls: ['./success.component.css']
+    selector: 'app-success',
+    templateUrl: './success.component.html',
+    styleUrls: ['./success.component.css'],
+    standalone: true,
+    imports: [RouterLink]
 })
 export class SuccessComponent implements OnInit {
   amount!: number;

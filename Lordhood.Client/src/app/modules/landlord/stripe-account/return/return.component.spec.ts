@@ -11,8 +11,8 @@ describe('ReturnComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReturnComponent ]
-    })
+    imports: [ReturnComponent]
+})
     .compileComponents();
   }));
 

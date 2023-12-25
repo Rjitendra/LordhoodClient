@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService, SharedModule } from 'primeng/api';
 
 import {
   IUserDetail,
@@ -7,13 +7,7 @@ import {
 } from '../../../../oauth/service/oauth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   IOngoingTenancy,
@@ -23,11 +17,29 @@ import {
 import { TenantService } from '@app/service/tenant.service';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
 import { DownloadType } from '@app/model/property';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgClass } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
-  selector: 'app-ongoing-tenancy',
-  templateUrl: './ongoing-tenancy.component.html',
-  styleUrls: ['./ongoing-tenancy.component.css'],
+    selector: 'app-ongoing-tenancy',
+    templateUrl: './ongoing-tenancy.component.html',
+    styleUrls: ['./ongoing-tenancy.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        DialogModule,
+        FileUploadModule,
+        SharedModule,
+        ProgressSpinnerModule,
+        ButtonModule,
+        ReactiveFormsModule,
+        NgClass,
+        CurrencyMaskModule,
+    ],
 })
 export class OngoingTenancyComponent implements OnInit {
   updateAgreemntForm!: FormGroup;

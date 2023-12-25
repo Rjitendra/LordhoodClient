@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
@@ -13,11 +8,19 @@ import { ITicket, ITicketHistory, ITicketStatus } from '@app/model/ticket';
 import { IUserDetail, OauthService } from '@app/oauth/service/oauth.service';
 import { TicketService } from '@app/service/ticket.service';
 import { requiredWithTrim } from '@app/model/validators';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-issue-history',
-  templateUrl: './issue-history.component.html',
-  styleUrls: ['./issue-history.component.css'],
+    selector: 'app-issue-history',
+    templateUrl: './issue-history.component.html',
+    styleUrls: ['./issue-history.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        DatePipe,
+    ],
 })
 export class IssueHistoryComponent implements OnInit {
   form!: FormGroup;

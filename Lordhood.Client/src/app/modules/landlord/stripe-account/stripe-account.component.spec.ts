@@ -11,8 +11,8 @@ describe('StripeAccountComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StripeAccountComponent ]
-    })
+    imports: [StripeAccountComponent]
+})
     .compileComponents();
   }));
 

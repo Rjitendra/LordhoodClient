@@ -11,8 +11,8 @@ describe('ReauthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReauthComponent ]
-    })
+    imports: [ReauthComponent]
+})
     .compileComponents();
   }));
 

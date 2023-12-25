@@ -1,19 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { IUserDetail, OauthService } from '@app/oauth/service/oauth.service';
 
 import moment from 'moment';
 import * as saveAs from 'file-saver';
-import { ConfirmEventType, ConfirmationService } from 'primeng/api';
+import { ConfirmEventType, ConfirmationService, SharedModule } from 'primeng/api';
 import { IDropDown } from '@app/model/model';
 import { IProperty } from '@app/model/property';
 import {
@@ -29,11 +22,40 @@ import { PropertyService } from '@app/service/property.service';
 import { TenantService } from '@app/service/tenant.service';
 import { LoaderService } from '@app/core/primeng/services/loader.service';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { NgClass, NgIf, CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-add-tenant',
-  templateUrl: './add-tenant.component.html',
-  styleUrls: ['./add-tenant.component.css'],
+    selector: 'app-add-tenant',
+    templateUrl: './add-tenant.component.html',
+    styleUrls: ['./add-tenant.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NgClass,
+        NgIf,
+        CalendarModule,
+        DropdownModule,
+        CurrencyMaskModule,
+        InputSwitchModule,
+        ButtonModule,
+        TableModule,
+        SharedModule,
+        TooltipModule,
+        DialogModule,
+        ProgressSpinnerModule,
+        CurrencyPipe,
+        DatePipe,
+    ],
 })
 export class AddTenantComponent implements OnInit {
   tenant!: ITenant;

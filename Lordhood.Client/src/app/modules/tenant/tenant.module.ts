@@ -15,25 +15,23 @@ import { CancelComponent } from './stripe/cancel/cancel.component';
 import { SuccessComponent } from './stripe/success/success.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbModule,
-    CoreModule,
-    PrimeNgModule,
-    TenantRoutingModule,
-  ],
-  declarations: [
-    TenantOutletComponent,
-    TenantUserComponent,
-    TicketCreateComponent,
-    TicketHistoryComponent,
-    RentPortalComponent,
-    SuccessComponent,
-    CancelComponent,
-  ],
-  providers: [DatePipe],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgbModule,
+        CoreModule,
+        PrimeNgModule,
+        TenantRoutingModule,
+        TenantOutletComponent,
+        TenantUserComponent,
+        TicketCreateComponent,
+        TicketHistoryComponent,
+        RentPortalComponent,
+        SuccessComponent,
+        CancelComponent,
+    ],
+    providers: [DatePipe],
 })
 export class TenantModule {}

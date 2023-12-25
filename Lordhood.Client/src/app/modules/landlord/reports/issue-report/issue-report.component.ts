@@ -14,11 +14,30 @@ import { IUserDetail, OauthService } from '@app/oauth/service/oauth.service';
 import { PaymentService } from '@app/service/payment.service';
 import { PropertyService } from '@app/service/property.service';
 import { TicketService } from '@app/service/ticket.service';
+import { DatePipe } from '@angular/common';
+import { TooltipModule } from 'primeng/tooltip';
+import { SharedModule } from 'primeng/api';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
-  selector: 'app-issue-report',
-  templateUrl: './issue-report.component.html',
-  styleUrls: ['./issue-report.component.css'],
+    selector: 'app-issue-report',
+    templateUrl: './issue-report.component.html',
+    styleUrls: ['./issue-report.component.css'],
+    standalone: true,
+    imports: [
+        RadioButtonModule,
+        FormsModule,
+        DropdownModule,
+        ButtonModule,
+        TableModule,
+        SharedModule,
+        TooltipModule,
+        DatePipe,
+    ],
 })
 export class IssueReportComponent implements OnInit {
   userdetail: Partial<IUserDetail> = {};

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoaderService } from '@app/core/primeng/services/loader.service';
 import { ToasterService } from '@app/core/primeng/services/toaster.service';
@@ -14,11 +14,24 @@ import { TenantService } from '@app/service/tenant.service';
 import { TicketService } from '@app/service/ticket.service';
 
 import { Subject, takeUntil } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { TooltipModule } from 'primeng/tooltip';
+import { SharedModule } from 'primeng/api';
+import { TableModule } from 'primeng/table';
 
 @Component({
-  selector: 'app-issue-tracker',
-  templateUrl: './issue-tracker.component.html',
-  styleUrls: ['./issue-tracker.component.css'],
+    selector: 'app-issue-tracker',
+    templateUrl: './issue-tracker.component.html',
+    styleUrls: ['./issue-tracker.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        TableModule,
+        SharedModule,
+        TooltipModule,
+        DatePipe,
+    ],
 })
 export class IssueTrackerComponent implements OnInit {
   ticketForm!: FormGroup;

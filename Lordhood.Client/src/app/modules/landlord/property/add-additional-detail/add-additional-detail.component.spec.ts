@@ -11,8 +11,8 @@ describe('AddAdditionalDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddAdditionalDetailComponent ]
-    })
+    imports: [AddAdditionalDetailComponent]
+})
     .compileComponents();
   }));
 

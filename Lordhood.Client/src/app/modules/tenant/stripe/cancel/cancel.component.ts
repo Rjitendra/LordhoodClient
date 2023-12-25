@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-cancel',
-  templateUrl: './cancel.component.html',
-  styleUrls: ['./cancel.component.css']
+    selector: 'app-cancel',
+    templateUrl: './cancel.component.html',
+    styleUrls: ['./cancel.component.css'],
+    standalone: true,
+    imports: [RouterLink]
 })
 export class CancelComponent implements OnInit {
 
