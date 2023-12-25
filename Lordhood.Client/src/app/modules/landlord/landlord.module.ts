@@ -18,7 +18,7 @@ import { ViewAdditionalDetailComponent } from './property/view-additional-detail
 import { AddTenantComponent } from './tenant-manager/add-tenant/add-tenant.component';
 import { IssueTrackerComponent } from './tenant-manager/issue-tracker/issue-tracker.component';
 import { OngoingTenancyComponent } from './tenant-manager/ongoing-tenancy/ongoing-tenancy.component';
-import { CoreModule } from '@app/core/core.module';
+
 import { IssueReportComponent } from './reports/issue-report/issue-report.component';
 import { RentReportComponent } from './reports/rent-report/rent-report.component';
 import { IssueHistoryComponent } from './tenant-manager/issue-history/issue-history.component';
@@ -38,33 +38,32 @@ const APP_CONTAINERS = [
 
 @NgModule({
     imports: [
-        CommonModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CoreModule,
-        PrimeNgModule,
-        CoreUiModule,
-        LandlordRoutingModule,
-        ...APP_CONTAINERS,
-        DashboardComponent,
-        AddPropertyComponent,
-        AddAdditionalDetailComponent,
-        ViewAdditionalDetailComponent,
-        OngoingTenancyComponent,
-        IssueTrackerComponent,
-        AddTenantComponent,
-        RentReportComponent,
-        IssueReportComponent,
-        IssueHistoryComponent,
-        RentPortalComponent,
-        StripeAccountComponent,
-        ReauthComponent,
-        ReturnComponent,
-        ProfileComponent,
-        SuccessComponent,
-        CancelComponent,
-    ],
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PrimeNgModule,
+    CoreUiModule,
+    LandlordRoutingModule,
+    ...APP_CONTAINERS,
+    DashboardComponent,
+    AddPropertyComponent,
+    AddAdditionalDetailComponent,
+    ViewAdditionalDetailComponent,
+    OngoingTenancyComponent,
+    IssueTrackerComponent,
+    AddTenantComponent,
+    RentReportComponent,
+    IssueReportComponent,
+    IssueHistoryComponent,
+    RentPortalComponent,
+    StripeAccountComponent,
+    ReauthComponent,
+    ReturnComponent,
+    ProfileComponent,
+    SuccessComponent,
+    CancelComponent,
+],
     providers: [Title, DatePipe],
 })
 export class LandlordModule {}
