@@ -20,29 +20,33 @@ export class TokenInterceptor implements HttpInterceptor {
    * Adding Bearer Token to HttpRequest header
    */
   intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    return from(this.getCurrentUserValue()).pipe(
-      switchMap((token: User) => {
-        let contentType = 'application/json';
-        if (request.body instanceof FormData) {
-          // we are sending a file here
-          contentType = 'multipart/form-data';
-        }
-
-        const headers = request.headers.set(
-          'Authorization',
-          'Bearer ' + token.access_token
-        );
-        const requestClone = request.clone({
-          headers,
-        });
-        return next.handle(requestClone);
-      })
-    );
-  }
-
+  request: HttpRequest<any>,
+  next: HttpHandler
+): Observable<HttpEvent<any>> {
+  return from(this.getCurrentUserValue()).pipe(
+    switchMap((token: User) => {
+      // Check if the request body is a FormData object
+      let contentType = 'application/json';
+      if (request.body instanceof FormData) {
+        contentType = 'multipart/form-data';
+      }
+      
+      // Set the Authorization header with the token
+      const headers = request.headers.set(
+        'Authorization',
+        'Bearer ' + token.access_token
+      );
+      
+      // Clone the request with the updated headers
+      const requestClone = request.clone({
+        headers,
+      });
+      
+      // Handle the cloned request
+      return next.handle(requestClone);
+    })
+  );
+}
   async getCurrentUserValue(): Promise<any> {
     try {
       let user: User | null = await this.oauthService.getUser();
@@ -50,7 +54,6 @@ export class TokenInterceptor implements HttpInterceptor {
         this.oauthService.setUserInfo(user.profile);
         return user;
       } else if (user && user.access_token && user.expired) {
-        // else if (user && user.access_token)
         user = await this.oauthService.renewToken();
         this.oauthService.setUserInfo(user.profile);
         return user;
