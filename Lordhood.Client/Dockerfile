@@ -1,27 +1,26 @@
-
-# Step 1: Build the Angular app
+# Dockerfile
+# Step 1: Use Node.js for building the app
 FROM node:18 AS build
 
-# Set working directory inside the container
+# Set working directory in the container
 WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-# RUN npm install
-RUN npm ci
+#RUN npm install -g @angular/cli
+RUN npm install
+
 # Copy the entire Angular project (excludes node_modules because of .dockerignore)
 COPY . .
 
-# Build the Angular app for production
+# Build the Angular app for production for me developement mode
 # RUN npm run build --prod
-RUN npm run build
+# RUN npm run build
+RUN npm run build:docker
 
 
 # Step 2: Serve the Angular app using Nginx
 FROM nginx:alpine
-
-# Install dependencies for Nginx (if needed, for example, for optimization)
-# RUN apk add --no-cache bash
 
 # Copy the built Angular app from the build stage to Nginx's public directory
 COPY --from=build /app/dist/lordhood.client /usr/share/nginx/html
@@ -30,8 +29,12 @@ COPY --from=build /app/dist/lordhood.client /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 
 
-# Expose port 80 to be able to access the app in the container
+# Expose port 80 to serve the app with Nginx
 EXPOSE 80
 
-# Run Nginx in the foreground
+
+# Start Nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
+
+
+# docker-compose up -d --build

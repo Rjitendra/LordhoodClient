@@ -73,6 +73,27 @@
               ],
               "outputHashing": "all"
             },
+            "docker": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "20mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "16kb",
+                  "maximumError": "20kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.docker.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -89,6 +110,9 @@
           "configurations": {
             "production": {
               "buildTarget": "Lordhood.Client:build:production"
+            },
+            "docker": {
+              "buildTarget": "Lordhood.Client:build:docker"
             },
             "development": {
               "buildTarget": "Lordhood.Client:build:development"
