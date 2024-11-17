@@ -3,7 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { PrimeNgModule } from '@app/core/primeng.module';
 import { CoreUiModule } from '@app/core/core-ui.module';
 import { Title } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   DefaultFooterComponent,
@@ -36,34 +36,28 @@ const APP_CONTAINERS = [
   DefaultLayoutComponent,
 ];
 
-@NgModule({
-    imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    PrimeNgModule,
-    CoreUiModule,
-    LandlordRoutingModule,
-    ...APP_CONTAINERS,
-    DashboardComponent,
-    AddPropertyComponent,
-    AddAdditionalDetailComponent,
-    ViewAdditionalDetailComponent,
-    OngoingTenancyComponent,
-    IssueTrackerComponent,
-    AddTenantComponent,
-    RentReportComponent,
-    IssueReportComponent,
-    IssueHistoryComponent,
-    RentPortalComponent,
-    StripeAccountComponent,
-    ReauthComponent,
-    ReturnComponent,
-    ProfileComponent,
-    SuccessComponent,
-    CancelComponent,
-],
-    providers: [Title, DatePipe],
-})
+@NgModule({ imports: [CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        PrimeNgModule,
+        CoreUiModule,
+        LandlordRoutingModule,
+        ...APP_CONTAINERS,
+        DashboardComponent,
+        AddPropertyComponent,
+        AddAdditionalDetailComponent,
+        ViewAdditionalDetailComponent,
+        OngoingTenancyComponent,
+        IssueTrackerComponent,
+        AddTenantComponent,
+        RentReportComponent,
+        IssueReportComponent,
+        IssueHistoryComponent,
+        RentPortalComponent,
+        StripeAccountComponent,
+        ReauthComponent,
+        ReturnComponent,
+        ProfileComponent,
+        SuccessComponent,
+        CancelComponent], providers: [Title, DatePipe, provideHttpClient(withInterceptorsFromDi())] })
 export class LandlordModule {}

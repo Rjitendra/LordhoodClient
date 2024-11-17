@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PrimeNgModule } from '@app/core/primeng.module';
@@ -14,23 +14,17 @@ import { RentPortalComponent } from './rent-portal/rent-portal.component';
 import { CancelComponent } from './stripe/cancel/cancel.component';
 import { SuccessComponent } from './stripe/success/success.component';
 
-@NgModule({
-    imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbModule,
-    PrimeNgModule,
-    TenantRoutingModule,
-    TenantOutletComponent,
-    TenantUserComponent,
-    TicketCreateComponent,
-    TicketHistoryComponent,
-    RentPortalComponent,
-    SuccessComponent,
-    CancelComponent,
-],
-    providers: [DatePipe],
-})
+@NgModule({ imports: [CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgbModule,
+        PrimeNgModule,
+        TenantRoutingModule,
+        TenantOutletComponent,
+        TenantUserComponent,
+        TicketCreateComponent,
+        TicketHistoryComponent,
+        RentPortalComponent,
+        SuccessComponent,
+        CancelComponent], providers: [DatePipe, provideHttpClient(withInterceptorsFromDi())] })
 export class TenantModule {}
