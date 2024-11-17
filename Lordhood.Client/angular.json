@@ -149,7 +149,7 @@
           
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/my-ui/ng-package.json",
+            "project": "projects/my-ui/ng-package.json"
           },
           "configurations": {
             "production": {
