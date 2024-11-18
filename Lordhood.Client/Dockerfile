@@ -8,7 +8,7 @@ WORKDIR /app
 # Install dependencies
 COPY package*.json ./
 #RUN npm install -g @angular/cli
-RUN npm install
+RUN npm install --force
 
 # Copy the entire Angular project (excludes node_modules because of .dockerignore)
 COPY . .
