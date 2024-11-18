@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from './components/layout/layout.component';
-import { HomeGuardService } from './guards/home-guard.service';
+ import { LayoutComponent } from './components/layout/layout.component';
+ import { HomeGuardService } from './guards/home-guard.service';
 import { SigninCallbackComponent } from './oauth/components/signin-callback/signin-callback.component';
 import { SignoutCallbackComponent } from './oauth/components/signout-callback/signout-callback.component';
+
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/tenant/tenant.module').then((m) => m.TenantModule),
   },
+  
   { path: 'signin-callback', component: SigninCallbackComponent },
   { path: 'signout-callback', component: SignoutCallbackComponent },
   { path: '**', redirectTo: '' },

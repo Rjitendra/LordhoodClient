@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OauthGuardService } from '@app/guards/oauth-guard.service';
 import { AddTenantGuardService } from '@app/guards/add-tenant-guard.service';
-import { DefaultLayoutComponent } from './containers';
+// import { DefaultLayoutComponent } from './containers';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddPropertyComponent } from './property/add-property/add-property.component';
 import { AddAdditionalDetailComponent } from './property/add-additional-detail/add-additional-detail.component';
@@ -19,11 +19,12 @@ import { ReauthComponent } from './stripe-account/reauth/reauth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SuccessComponent } from './profile/success/success.component';
 import { CancelComponent } from './profile/cancel/cancel.component';
+import { CardComponent } from '@app/card/card.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DefaultLayoutComponent,
+    component: CardComponent,
     canActivate: [OauthGuardService],
     children: [
       { path: 'dashboard', component: DashboardComponent },

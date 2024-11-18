@@ -5,11 +5,11 @@ import { CoreUiModule } from '@app/core/core-ui.module';
 import { Title } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  DefaultFooterComponent,
-  DefaultHeaderComponent,
-  DefaultLayoutComponent,
-} from './containers';
+// import {
+//   DefaultFooterComponent,
+//   DefaultHeaderComponent,
+//   DefaultLayoutComponent,
+// } from './containers';
 import { LandlordRoutingModule } from './lanlord.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddPropertyComponent } from './property/add-property/add-property.component';
@@ -30,11 +30,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { SuccessComponent } from './profile/success/success.component';
 import { CancelComponent } from './profile/cancel/cancel.component';
 
-const APP_CONTAINERS = [
-  DefaultFooterComponent,
-  DefaultHeaderComponent,
-  DefaultLayoutComponent,
-];
+// const APP_CONTAINERS = [
+//   DefaultFooterComponent,
+//   DefaultHeaderComponent,
+//   DefaultLayoutComponent,
+// ];
 
 @NgModule({ imports: [CommonModule,
         FormsModule,
@@ -42,7 +42,7 @@ const APP_CONTAINERS = [
         PrimeNgModule,
         CoreUiModule,
         LandlordRoutingModule,
-        ...APP_CONTAINERS,
+        // ...APP_CONTAINERS,
         DashboardComponent,
         AddPropertyComponent,
         AddAdditionalDetailComponent,

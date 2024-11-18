@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { navItems } from './_nav';
 import { Title } from '@angular/platform-browser';
@@ -43,19 +43,21 @@ import {
     BadgeModule,
     // SidebarComponent,
     // SidebarBrandComponent,
-  //  RouterLink,
+    //  RouterLink,
     NgScrollbarModule,
     // SidebarNavComponent,
     // SidebarTogglerComponent,
     //SidebarToggleDirective,
     DefaultHeaderComponent,
-  //  ContainerComponent,
-   // RouterOutlet,
+    //  ContainerComponent,
+    RouterOutlet,
     DefaultFooterComponent,
   ],
   providers: [IconSetService],
 })
 export class DefaultLayoutComponent implements OnInit {
+  @Output() logout = new EventEmitter<void>();
+
   loading!: boolean;
   public navItems = navItems;
   title = 'Lordhood';
@@ -76,4 +78,8 @@ export class DefaultLayoutComponent implements OnInit {
   ngOnInit() {}
 
   openModal() {}
+  onLogout(): void {
+    this.logout.emit();
+  }
 }
+

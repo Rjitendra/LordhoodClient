@@ -21,11 +21,11 @@
 
 <div class="wrapper d-flex flex-column min-vh-100 dark:bg-transparent">
   <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky"
-  sidebarId="sidebar"></app-default-header>
+  sidebarId="sidebar" (logout)="onLogout()"></app-default-header>
 
   <div class="body flex-grow-1 px-3" style="background-color: #fff">
     <c-container breakpoint="lg" class="h-auto">
-     <h1>jitendra</h1>
+      <router-outlet />
     </c-container>
   </div>
 

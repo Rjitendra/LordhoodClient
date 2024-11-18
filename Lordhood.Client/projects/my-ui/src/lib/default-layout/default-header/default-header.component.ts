@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   HeaderModule,
   ClassToggleService,
@@ -43,7 +43,7 @@ import { IconDirective } from '@coreui/icons-angular';
 })
 export class DefaultHeaderComponent extends HeaderComponent {
   @Input() sidebarId: string = 'sidebar';
-
+  @Output() logout = new EventEmitter<void>();
   public newMessages = new Array(4);
   public newTasks = new Array(5);
   public newNotifications = new Array(5);
@@ -52,8 +52,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
     super();
   }
 
-  public async onLogout(): Promise<void> {
-    try {
-    } catch (err) {}
+  public async onLogout() {
+    this.logout.emit();
   }
 }
