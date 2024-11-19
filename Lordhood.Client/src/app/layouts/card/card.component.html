@@ -1,0 +1,8 @@
+<lib-core-ui (logout)="onLogout()"></lib-core-ui>
+@if (loading) {
+    <div class="progress-spinner">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  }
+  <app-toaster></app-toaster>
+  <p-confirmDialog [style]="{ width: '30vw' }"></p-confirmDialog>

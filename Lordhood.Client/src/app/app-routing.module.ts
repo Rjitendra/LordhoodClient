@@ -1,28 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
- import { LayoutComponent } from './components/layout/layout.component';
- import { HomeGuardService } from './guards/home-guard.service';
+
+
+ import { HomeGuardService } from './app-home-guard.service';
 import { SigninCallbackComponent } from './oauth/components/signin-callback/signin-callback.component';
 import { SignoutCallbackComponent } from './oauth/components/signout-callback/signout-callback.component';
-
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
+    component: HomeComponent,
     canActivate: [HomeGuardService],
   },
   {
     path: 'landlord',
     loadChildren: () =>
-      import('./modules/landlord/landlord.module').then(
+      import('./features/landlord/landlord.module').then(
         (m) => m.LandlordModule
       ),
   },
   {
     path: 'user',
     loadChildren: () =>
-      import('./modules/tenant/tenant.module').then((m) => m.TenantModule),
+      import('./features/tenant/tenant.module').then((m) => m.TenantModule),
   },
   
   { path: 'signin-callback', component: SigninCallbackComponent },
