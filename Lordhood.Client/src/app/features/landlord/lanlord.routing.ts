@@ -14,7 +14,7 @@ import { IssueHistoryComponent } from './components/tenant-manager/issue-history
 import { RentPortalComponent } from './components/rent-portal/rent-portal.component';
 import { ReturnComponent } from './components/stripe-account/return/return.component';
 import { ReauthComponent } from './components/stripe-account/reauth/reauth.component';
-import { CardComponent } from '@coreui/angular';
+
 
 
 import { ProfileComponent } from './components/profile/profile.component';
@@ -22,6 +22,7 @@ import { OauthGuardService } from './guards/landlord/oauth-guard.service';
 import { AddTenantGuardService } from '../tenant/guards/add-tenant/add-tenant-guard.service';
 import { CancelComponent } from '../tenant/components/stripe/cancel/cancel.component';
 import { SuccessComponent } from '../tenant/components/stripe/success/success.component';
+import { CardComponent } from '@app/layouts/card/card.component';
 
 
 const routes: Routes = [

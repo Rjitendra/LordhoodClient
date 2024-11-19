@@ -13,6 +13,9 @@ RUN npm install --force
 # Copy the entire Angular project (excludes node_modules because of .dockerignore)
 COPY . .
 
+# Build the Core UI library
+RUN npm run build:core-ui
+
 # Build the Angular app for production for me developement mode
 # RUN npm run build --prod
 # RUN npm run build

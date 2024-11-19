@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build:prod": "ng build --configuration=production --base-href /",
+    "build:core-ui": "ng build core-ui",
     "build:docker": "ng build --configuration=docker"
+    
   },
   "private": true,
   "dependencies": {
