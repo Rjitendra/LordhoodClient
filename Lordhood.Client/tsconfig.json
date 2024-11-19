@@ -8,9 +8,10 @@
       "@core/*": [
         "src/app/core/*"
       ],
-      "my-ui": [
-        "./dist/my-ui"
-      ]
+      "core-ui": [
+        "./dist/core-ui"
+      ],
+      "@core-ui/*": ["projects/core-ui/src/lib/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

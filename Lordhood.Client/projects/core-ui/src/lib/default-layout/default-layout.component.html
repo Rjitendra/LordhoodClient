@@ -1,0 +1,33 @@
+<c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
+  <c-sidebar-brand [brandFull]="{
+      src: 'assets/images/dasboard.png',
+      width: 256,
+      height: 65,
+      alt: 'CoreUI Logo'
+    }" [brandNarrow]="{
+      src: 'assets/images/dasboard_icon.png',
+      width: 65,
+      height: 65,
+      alt: 'CoreUI Logo'
+    }" routerLink="./">
+  </c-sidebar-brand>
+  <ng-scrollbar pointerEventsMethod="scrollbar">
+    <c-sidebar-nav [navItems]="navItems" dropdownMode="close"> </c-sidebar-nav>
+  </ng-scrollbar>
+  @if (!sidebar.narrow) {
+    <c-sidebar-toggler toggle="unfoldable" cSidebarToggle="sidebar"></c-sidebar-toggler>
+  }
+</c-sidebar>
+
+<div class="wrapper d-flex flex-column min-vh-100 dark:bg-transparent">
+  <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky"
+  sidebarId="sidebar" (logout)="onLogout()"></app-default-header>
+
+  <div class="body flex-grow-1 px-3" style="background-color: #fff">
+    <c-container breakpoint="lg" class="h-auto">
+      <router-outlet />
+    </c-container>
+  </div>
+
+  <app-default-footer></app-default-footer>
+</div>
